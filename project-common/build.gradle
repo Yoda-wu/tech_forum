@@ -2,3 +2,9 @@
 repositories {
     mavenCentral()
 }
+jar{
+    enabled = true
+}
+bootJar{
+    enabled = false
+}

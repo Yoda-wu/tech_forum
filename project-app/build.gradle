@@ -3,5 +3,8 @@ repositories {
 }
 
 dependencies {
-    implementation project(':project-service')
+    implementation project(':project-common')
+}
+bootJar{
+    enabled=true
 }

@@ -1,5 +1,4 @@
 rootProject.name = 'UmlProject'
 include 'project-app'
-include 'project-service'
 include 'project-common'
 
