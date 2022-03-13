@@ -1,3 +1,5 @@
+
+
 plugins {
     id 'org.springframework.boot' version '2.3.7.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
@@ -26,6 +28,7 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
 subprojects {
 
     apply plugin: 'org.springframework.boot'
@@ -35,8 +38,13 @@ subprojects {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-aop'
+//        implementation 'org.springframework.boot:spring-boot-starter-security'
+
         implementation 'mysql:mysql-connector-java:8.0.24'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.0'
+        implementation 'io.springfox:springfox-boot-starter:3.0.0'
+        implementation 'io.springfox:springfox-swagger-ui'
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
@@ -46,10 +54,7 @@ subprojects {
     test {
         useJUnitPlatform()
     }
+
+
 }
 
-jar{
-    manifest{
-        attributes "Main-Class" : "com.uml.projectapp.ProjectAppApplication"
-    }
-}
