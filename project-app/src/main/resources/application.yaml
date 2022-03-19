@@ -1,18 +1,25 @@
 # 应用名称
 spring:
+
   application:
     name: project-app
 
   datasource:
-    url: jdbc:mysql://120.78.240.226:3306/scutbbs?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC
+    url: jdbc:mysql://120.78.240.226:3306/scutbbs_dev?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 3f6a66df177d0146
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jackson:
     date-format: yyyy-MM-dd HH:ss:ss
-    deserialization: true
-    serialization: true
-    default-property-inclusion: non_null
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
 
+    serialization:
+      FAIL_ON_EMPTY_BEANS: true
+    default-property-inclusion: non_null
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 
 server:
@@ -20,3 +27,6 @@ server:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.uml.commmon.po.*
+  mapper-locations: classpath:/com/uml/projectapp/dao/*Mapper.xml

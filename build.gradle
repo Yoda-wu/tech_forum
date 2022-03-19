@@ -1,8 +1,8 @@
 
 
 plugins {
-    id 'org.springframework.boot' version '2.3.7.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 tasks.forEach{
@@ -29,6 +29,7 @@ test {
     useJUnitPlatform()
 }
 
+
 subprojects {
 
     apply plugin: 'org.springframework.boot'
@@ -45,16 +46,21 @@ subprojects {
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.0'
         implementation 'io.springfox:springfox-boot-starter:3.0.0'
         implementation 'io.springfox:springfox-swagger-ui'
+
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
-        testImplementation 'junit:junit'
+        testImplementation 'junit:junit:4.13.1'
     }
 
     test {
         useJUnitPlatform()
     }
 
+    springBoot {
+        buildInfo()
+    }
 
 }
 
