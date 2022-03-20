@@ -3,7 +3,6 @@ spring:
 
   application:
     name: project-app
-
   datasource:
     url: jdbc:mysql://120.78.240.226:3306/scutbbs_dev?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
@@ -20,6 +19,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  profiles:
+    include: config
+
 
 
 server:

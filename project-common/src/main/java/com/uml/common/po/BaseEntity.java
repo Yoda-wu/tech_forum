@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -12,7 +13,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -21,6 +23,7 @@ import java.util.Objects;
  * @author wuyuda
  * @date 2022-03-18 17:30
  */
+@SuppressWarnings("unused")
 public abstract class BaseEntity implements Serializable, Comparable<BaseEntity> {
 
     /**
@@ -100,6 +103,7 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
     @JsonFormat(pattern = DATE_PATTERN, timezone = TIME_ZONE)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonIgnore
     protected Date createTime;
     /**
      * 更新时间
@@ -109,6 +113,7 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
     @JsonFormat(pattern = DATE_PATTERN, timezone = TIME_ZONE)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonIgnore
     protected Date updateTime;
     /**
      * 逻辑删除
