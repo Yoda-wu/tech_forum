@@ -22,5 +22,5 @@ public interface UserService {
      * @param avatarUrl 图像url
      * @return 结果实体
      */
-    public String userLogin(String openid,String name,String avatarUrl) throws JsonProcessingException;
+    public String userLogin(String openid,String name,String avatarUrl,Integer gender) throws JsonProcessingException;
 }

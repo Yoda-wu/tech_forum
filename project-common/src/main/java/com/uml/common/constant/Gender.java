@@ -6,12 +6,13 @@ package com.uml.common.constant;
  */
 public enum Gender {
 
-    // 男性
-    MALE(1),
     // 女性
-    FEMALE(0);
+    FEMALE(0),
+    // 男性
+    MALE(1);
 
-    private final int value;
+
+    public final int value;
 
     Gender(int value){
         this.value = value;

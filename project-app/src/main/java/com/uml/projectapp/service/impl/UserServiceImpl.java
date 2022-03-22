@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uml.common.constant.ErrorCode;
+import com.uml.common.constant.Gender;
 import com.uml.common.po.User;
+import com.uml.common.utils.ResultUtil;
 import com.uml.projectapp.dao.UserDao;
 import com.uml.projectapp.service.UserService;
 import org.slf4j.Logger;
@@ -34,12 +37,12 @@ public class UserServiceImpl implements UserService {
             );
         }
         else {
-            System.out.println("Error");
+            logger.info("Error");
         }
     }
 
     @Override
-    public String userLogin(String openid, String name, String avatarUrl) throws JsonProcessingException {
+    public String userLogin(String openid, String name, String avatarUrl,Integer gender) throws JsonProcessingException {
         logger.info(openid);
         User user = userDao.selectByOpenId(openid);
         if(user != null){
@@ -49,7 +52,8 @@ public class UserServiceImpl implements UserService {
         user.setOpenId(openid);
         user.setName(name);
         user.setAvatar(avatarUrl);
+        user.setGender(Gender.values()[gender]);
         userDao.insert(user);
-        return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
     }
 }

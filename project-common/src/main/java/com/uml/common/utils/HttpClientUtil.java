@@ -11,6 +11,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.util.UriBuilder;
 
@@ -35,6 +37,8 @@ public class HttpClientUtil {
 
     public static final String CODE_2_SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session";
 
+
+    private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
     @Value("${wechat.miniprogram.appId}")
     public static String appId;
 
@@ -70,6 +74,7 @@ public class HttpClientUtil {
             HttpResponse response = httpClient.execute(httpGet);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
+                logger.info(EntityUtils.toString(entity, CHARSET));
                 return EntityUtils.toString(entity, CHARSET);
             }
         } catch (URISyntaxException | IOException e) {
