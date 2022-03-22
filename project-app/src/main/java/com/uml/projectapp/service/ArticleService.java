@@ -1,7 +1,12 @@
 package com.uml.projectapp.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uml.common.constant.ArticleState;
 import com.uml.common.constant.ArticleType;
+import com.uml.common.po.Article;
+
+import java.util.List;
 
 /**
  * @author wuyuda
@@ -18,6 +23,53 @@ public interface ArticleService {
 
     /**
      * 往数据库里新增一篇文章
+     *
+     * @param uid     用户id
+     * @param title   文章标题
+     * @param content 内容
+     * @param type    类型
+     * @param state   状态
+     * @return 增加是否成功的消息
+     * @throws JsonProcessingException json处理异常
      */
-    public void insertArticle(Long uid, String title, String content, ArticleType type, ArticleState state);
+    public String insertArticle(Long uid, String title, String content, String type, ArticleState state) throws JsonProcessingException;
+
+    /**
+     * 更改文章
+     *
+     * @param article 文章实体类
+     * @return 文章的id
+     * @throws JsonProcessingException json处理异常
+     */
+    public String updateArticle(Article article) throws JsonProcessingException;
+
+    /**
+     * 保存文章--未发布
+     *
+     * @param article 文章实体
+     * @return 未发布文章信息
+     * @throws JsonProcessingException json处理异常
+     */
+    public String saveArticle(Article article) throws JsonProcessingException;
+
+    /**
+     * 发布文章
+     *
+     * @param article 文章实体
+     * @return 未发布文章信息
+     * @throws JsonProcessingException json处理异常
+     */
+    public String publishArticle(Article article) throws JsonProcessingException;
+
+    /**
+     * 分页获取已发布的文章
+     *
+     * @param current 当前页面
+     * @param size    页面大小
+     * @return 页面文章列表
+     * @throws JsonProcessingException json处理异常
+     */
+    public String listPublishedArticle(Integer current, Integer size) throws JsonProcessingException;
+
+
 }

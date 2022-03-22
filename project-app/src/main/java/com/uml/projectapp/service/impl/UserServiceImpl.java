@@ -1,7 +1,6 @@
 package com.uml.projectapp.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uml.common.constant.ErrorCode;
@@ -40,6 +39,7 @@ public class UserServiceImpl implements UserService {
             logger.info("Error");
         }
     }
+
 
     @Override
     public String userLogin(String openid, String name, String avatarUrl,Integer gender) throws JsonProcessingException {

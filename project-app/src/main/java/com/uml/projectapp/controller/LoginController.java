@@ -23,29 +23,32 @@ import java.util.Map;
  * @date 2022-03-20 14:22
  */
 @RestController()
-@Api("小程序相关的接口")
+@Api("登录相关的接口")
 public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     private final UserService userService;
-    LoginController(UserService userService){
+
+    private final ObjectMapper objectMapper;
+
+    LoginController(UserService userService, ObjectMapper objectMapper) {
         this.userService = userService;
+        this.objectMapper = objectMapper;
     }
 
 
     @PostMapping("/wx/login")
     @SuppressWarnings("all")
-    @ApiOperation(value = "小程序登录操作",notes = "登陆时需要传递微信登录code以及昵称和头像",response = User.class)
-    public String login(@RequestBody @ApiParam(value = "是一个Json字符串",required = true)  String jsonString ) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        Map map = mapper.readValue(jsonString, Map.class);
-        logger.info(" =================== "+map);
-        Map responseMap = mapper.readValue(HttpClientUtil.wxLoginCode2Session((String) map.get(Constant.JS_CODE)), Map.class);
-        if(responseMap.get("openid")==null){
+    @ApiOperation(value = "小程序登录操作", notes = "登陆时需要传递微信登录code以及昵称和头像", response = User.class)
+    public String login(@RequestBody @ApiParam(value = "是一个Json字符串", required = true) String jsonString) throws JsonProcessingException {
+        Map<?,?> map = objectMapper.readValue(jsonString, Map.class);
+        logger.info(" =================== " + map);
+        Map<?,?> responseMap = objectMapper.readValue(HttpClientUtil.wxLoginCode2Session((String) map.get(Constant.JS_CODE)), Map.class);
+        if (responseMap.get("openid") == null) {
             return "Error";
         }
-        logger.info(" =================== "+responseMap.get("openid"));
-        return userService.userLogin((String) responseMap.get("openid"), (String) map.get("name"), (String) map.get("avatarUrl"),(Integer)map.get("gender"));
+        logger.info(" =================== " + responseMap.get("openid"));
+        return userService.userLogin((String) responseMap.get("openid"), (String) map.get("name"), (String) map.get("avatarUrl"), (Integer) map.get("gender"));
     }
 }

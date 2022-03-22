@@ -96,6 +96,7 @@ public class HttpClientUtil {
         requestMap.put(Constant.JS_CODE,jsonCode);
         requestMap.put(Constant.APP_ID,appId);
         requestMap.put(Constant.SECRET,appSecret);
+        requestMap.put(Constant.GRANT_TYPE,Constant.GRANT_TYPE_VALUE);
         String jsonString = mapper.writeValueAsString(requestMap);
         return doGet(CODE_2_SESSION_URL, jsonString);
     }

@@ -1,8 +1,11 @@
 package com.uml.projectapp.config;
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -13,15 +16,20 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
+@ConditionalOnClass(value = {MybatisPlusInterceptor.class})
 public class MybatisPlusConfig {
 
-    /**
-     *   注册乐观锁
-     */
+
     @Bean
-    public MybatisPlusInterceptor paginationInnerInterceptor(){
+    public MybatisPlusInterceptor paginationInnerInterceptor() {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+        // 注册乐观锁
         mybatisPlusInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+        //分页拦截器
+        mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return mybatisPlusInterceptor;
     }
+
+
+
 }
