@@ -1,6 +1,7 @@
 package com.uml.common.vo;
 
 import com.uml.common.po.Article;
+import io.swagger.annotations.ApiModel;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * @author wuyuda
  * @date 2022-03-22 16:57
  */
+@ApiModel
 public class ArticleVo {
 
     private Integer current;

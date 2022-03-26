@@ -48,7 +48,8 @@ subprojects {
         implementation 'io.springfox:springfox-swagger-ui'
         // Http请求
         implementation 'org.apache.httpcomponents:httpclient:4.5.13'
-
+        // Configuration 注解处理器
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

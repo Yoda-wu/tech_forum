@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "wechat.miniprogram.appSecret",
+      "type": "java.lang.String",
+      "description": "Description for wechat.miniprogram.appSecret."
+    },
+    {
+      "name": "wechat.miniprogram.appId",
+      "type": "java.lang.String",
+      "description": "Description for wechat.miniprogram.appId."
+    }
+  ] }

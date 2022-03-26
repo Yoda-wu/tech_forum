@@ -39,11 +39,10 @@ public class HttpClientUtil {
 
 
     private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
-    @Value("${wechat.miniprogram.appId}")
-    public static String appId;
 
-    @Value("${wechat.miniprogram.appSecret}")
-    public static String appSecret;
+    public static String appId ="wxfb64b9073645a7d2";
+
+    public static String appSecret ="3e235a52dd5a11a0ded7ff003f7e7a9f";
 
 
     /**
@@ -74,8 +73,9 @@ public class HttpClientUtil {
             HttpResponse response = httpClient.execute(httpGet);
             HttpEntity entity = response.getEntity();
             if (entity != null) {
-                logger.info(EntityUtils.toString(entity, CHARSET));
-                return EntityUtils.toString(entity, CHARSET);
+                String string = EntityUtils.toString(entity, CHARSET);
+                logger.info(string);
+                return string;
             }
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
@@ -98,6 +98,7 @@ public class HttpClientUtil {
         requestMap.put(Constant.SECRET,appSecret);
         requestMap.put(Constant.GRANT_TYPE,Constant.GRANT_TYPE_VALUE);
         String jsonString = mapper.writeValueAsString(requestMap);
+        logger.info("======="+jsonString);
         return doGet(CODE_2_SESSION_URL, jsonString);
     }
 

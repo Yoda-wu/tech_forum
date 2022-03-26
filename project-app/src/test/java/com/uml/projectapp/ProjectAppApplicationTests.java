@@ -8,6 +8,7 @@ import com.uml.projectapp.dao.UserDao;
 import com.uml.projectapp.service.ArticleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -21,12 +22,11 @@ class ProjectAppApplicationTests {
     @Autowired
     ArticleDao articleDao;
 
+    @Value("${wechat.miniprogram.appId}")
+    public String test;
     @Test
     void contextLoads() throws JsonProcessingException {
-        for (int i = 1; i <= 2; i++) {
-            System.out.println(articleService.listPublishedArticle(i, 2));
-
-        }
+        System.out.println(test);
 
     }
     public void gender( ) throws JsonProcessingException {

@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         logger.info(openid);
         User user = userDao.selectByOpenId(openid);
         if(user != null){
-            new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user);
+            return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user);
         }
         user = new User();
         user.setOpenId(openid);
