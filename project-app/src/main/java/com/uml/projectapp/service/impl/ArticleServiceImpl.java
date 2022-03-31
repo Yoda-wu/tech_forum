@@ -1,14 +1,14 @@
 package com.uml.projectapp.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uml.common.constant.ArticleState;
 import com.uml.common.constant.ArticleType;
 import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Article;
 import com.uml.common.utils.ResultUtil;
+import com.uml.common.vo.ArticleListVo;
 import com.uml.common.vo.ArticleVo;
 import com.uml.projectapp.dao.ArticleDao;
 import com.uml.projectapp.service.ArticleService;
@@ -24,9 +24,10 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleDao articleDao;
-
-    ArticleServiceImpl(ArticleDao articleDao){
+    private final ObjectMapper objectMapper;
+    ArticleServiceImpl(ArticleDao articleDao, ObjectMapper objectMapper){
         this.articleDao = articleDao;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -57,16 +58,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public String listPublishedArticle(Integer current, Integer size) throws JsonProcessingException {
-        ArticleVo articleVo = new ArticleVo();
-        Page<Article> page = new Page<>(current, size);
-        QueryWrapper<Article> wrapper = new QueryWrapper<>();
-
-        articleDao.selectPage(page, wrapper.eq(Article.STATE,ArticleState.PUBLISHED.name()));
+        ArticleListVo articleVo = new ArticleListVo();
+        List<ArticleVo> articleVos = articleDao.listPublishedArticle(current, size);
         articleVo.setCurrent(current);
         articleVo.setSize(size);
-        articleVo.setArticles(page.getRecords());
-        articleVo.setTotal(page.getTotal());
-        return ResultUtil.generateResult(ErrorCode.SUCCESS,articleVo);
+        articleVo.setArticles(articleVos);
+        articleVo.setTotal((long) articleVos.size());
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(articleVo);
+
     }
 
     @Override

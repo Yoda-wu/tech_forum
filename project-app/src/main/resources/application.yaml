@@ -1,5 +1,7 @@
 # 应用名称
 spring:
+  profiles:
+    include: config
 
   application:
     name: project-app
@@ -19,8 +21,19 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  profiles:
-    include: config
+
+  redis:
+    database: 1
+    host: 120.78.240.226
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-idle: 8
+        max-wait: 1000ms
+      shutdown-timeout: 100ms
+    password: umlredispassword
 
 
 

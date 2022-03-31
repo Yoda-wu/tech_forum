@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uml.common.constant.Constant;
 import com.uml.common.po.User;
-import com.uml.common.utils.HttpClientUtil;
+import com.uml.projectapp.utils.HttpClientUtil;
 import com.uml.projectapp.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

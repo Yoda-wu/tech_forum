@@ -1,4 +1,4 @@
-package com.uml.common.utils;
+package com.uml.projectapp.utils;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,7 +14,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.util.UriBuilder;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,6 +31,7 @@ import java.util.Map;
  * @author wuyuda
  * @date 2022-03-20 14:42
  */
+@Component
 public class HttpClientUtil {
 
     public static final String CHARSET = "UTF-8";
@@ -40,10 +41,21 @@ public class HttpClientUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
-    public static String appId ="wxfb64b9073645a7d2";
 
-    public static String appSecret ="3e235a52dd5a11a0ded7ff003f7e7a9f";
+    public static String appId;
 
+
+    public static String appSecret;
+
+    @Value("${wechat.miniprogram.appId}")
+    public void setAppId(String appId) {
+        HttpClientUtil.appId = appId;
+    }
+
+    @Value("${wechat.miniprogram.appSecret")
+    public void setAppSecret(String appSecret) {
+        HttpClientUtil.appSecret = appSecret;
+    }
 
     /**
      * 发起Get请求
@@ -92,13 +104,13 @@ public class HttpClientUtil {
      */
     public static String wxLoginCode2Session(String jsonCode) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        Map<String,String> requestMap  = new HashMap<>();
-        requestMap.put(Constant.JS_CODE,jsonCode);
-        requestMap.put(Constant.APP_ID,appId);
-        requestMap.put(Constant.SECRET,appSecret);
-        requestMap.put(Constant.GRANT_TYPE,Constant.GRANT_TYPE_VALUE);
+        Map<String, String> requestMap = new HashMap<>();
+        requestMap.put(Constant.JS_CODE, jsonCode);
+        requestMap.put(Constant.APP_ID, appId);
+        requestMap.put(Constant.SECRET, appSecret);
+        requestMap.put(Constant.GRANT_TYPE, Constant.GRANT_TYPE_VALUE);
         String jsonString = mapper.writeValueAsString(requestMap);
-        logger.info("======="+jsonString);
+        logger.info("=======" + jsonString);
         return doGet(CODE_2_SESSION_URL, jsonString);
     }
 
@@ -139,4 +151,6 @@ public class HttpClientUtil {
         }
         return filename;
     }
+
+
 }

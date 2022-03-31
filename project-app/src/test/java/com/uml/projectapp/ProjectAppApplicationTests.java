@@ -6,6 +6,7 @@ import com.uml.common.constant.ArticleType;
 import com.uml.projectapp.dao.ArticleDao;
 import com.uml.projectapp.dao.UserDao;
 import com.uml.projectapp.service.ArticleService;
+import com.uml.projectapp.utils.HttpClientUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,8 @@ class ProjectAppApplicationTests {
     public String test;
     @Test
     void contextLoads() throws JsonProcessingException {
-        System.out.println(test);
+        System.out.println(HttpClientUtil.appId);
+
 
     }
     public void gender( ) throws JsonProcessingException {

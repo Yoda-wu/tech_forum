@@ -2,11 +2,10 @@ package com.uml.projectapp.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uml.common.constant.ArticleState;
-import com.uml.common.constant.Constant;
+import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Article;
 import com.uml.common.utils.ResultUtil;
-import com.uml.common.vo.ArticleVo;
+import com.uml.common.vo.ArticleListVo;
 import com.uml.projectapp.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * @author wuyuda
@@ -76,8 +73,9 @@ public class ArticleController {
      * @throws JsonProcessingException json处理异常
      */
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询已发布的文章", notes = "current变量的起始值是1", response = ArticleVo.class)
+
+    @ApiOperation(value = "分页查询已发布的文章", notes = "current变量的起始值是1", response = ArticleListVo.class)
     public String getPublishArticle(Integer current, Integer size) throws JsonProcessingException {
-        return articleService.listPublishedArticle(current, size);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,articleService.listPublishedArticle(current, size));
     }
 }
