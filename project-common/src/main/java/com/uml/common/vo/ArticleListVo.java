@@ -3,6 +3,7 @@ package com.uml.common.vo;
 import com.uml.common.po.Article;
 import io.swagger.annotations.ApiModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @date 2022-03-22 16:57
  */
 @ApiModel
-public class ArticleListVo {
+public class ArticleListVo implements Serializable {
 
     private Integer current;
     private Integer size;

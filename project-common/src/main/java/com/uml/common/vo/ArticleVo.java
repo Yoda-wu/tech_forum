@@ -39,4 +39,6 @@ public class ArticleVo extends Article {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+
 }

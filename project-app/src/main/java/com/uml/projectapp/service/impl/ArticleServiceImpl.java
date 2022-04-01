@@ -12,6 +12,7 @@ import com.uml.common.vo.ArticleListVo;
 import com.uml.common.vo.ArticleVo;
 import com.uml.projectapp.dao.ArticleDao;
 import com.uml.projectapp.service.ArticleService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,15 +57,16 @@ public class ArticleServiceImpl implements ArticleService {
         return ResultUtil.generateResult(ErrorCode.SUCCESS,article.getId());
     }
 
+    @Cacheable(value = {"ArticlePage"},key = "#root.methodName")
     @Override
-    public String listPublishedArticle(Integer current, Integer size) throws JsonProcessingException {
+    public ArticleListVo listPublishedArticle(Integer current, Integer size)  {
         ArticleListVo articleVo = new ArticleListVo();
         List<ArticleVo> articleVos = articleDao.listPublishedArticle(current, size);
         articleVo.setCurrent(current);
         articleVo.setSize(size);
         articleVo.setArticles(articleVos);
         articleVo.setTotal((long) articleVos.size());
-        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(articleVo);
+        return articleVo;
 
     }
 

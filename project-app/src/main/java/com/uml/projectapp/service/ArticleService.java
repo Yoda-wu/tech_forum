@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uml.common.constant.ArticleState;
 import com.uml.common.constant.ArticleType;
 import com.uml.common.po.Article;
+import com.uml.common.vo.ArticleListVo;
+import com.uml.common.vo.ArticleVo;
 
 import java.util.List;
 
@@ -67,9 +69,8 @@ public interface ArticleService {
      * @param current 当前页面
      * @param size    页面大小
      * @return 页面文章列表
-     * @throws JsonProcessingException json处理异常
      */
-    public String listPublishedArticle(Integer current, Integer size) throws JsonProcessingException;
+    public ArticleListVo listPublishedArticle(Integer current, Integer size) ;
 
 
 }

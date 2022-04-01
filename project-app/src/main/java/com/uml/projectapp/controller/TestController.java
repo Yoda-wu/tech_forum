@@ -24,12 +24,12 @@ public class TestController {
 
     @GetMapping("/")
     public String test() throws JsonProcessingException {
-        return ResultUtil.generateResult(ErrorCode.SUCCESS,"欢迎访问校园技术论坛api");
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, "欢迎访问校园技术论坛api");
     }
 
     @GetMapping("/test2")
     @ApiOperation("")
-    public String test2(){
-        return "testService.test()";
+    public String test2() throws JsonProcessingException {
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, "testService.test() \n");
     }
 }

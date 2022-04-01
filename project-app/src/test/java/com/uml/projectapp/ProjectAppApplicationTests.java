@@ -27,7 +27,7 @@ class ProjectAppApplicationTests {
     public String test;
     @Test
     void contextLoads() throws JsonProcessingException {
-        System.out.println(HttpClientUtil.appId);
+        System.out.println(HttpClientUtil.appSecret);
 
 
     }

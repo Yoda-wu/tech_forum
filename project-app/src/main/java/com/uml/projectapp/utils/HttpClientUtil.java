@@ -52,7 +52,7 @@ public class HttpClientUtil {
         HttpClientUtil.appId = appId;
     }
 
-    @Value("${wechat.miniprogram.appSecret")
+    @Value("${wechat.miniprogram.appSecret}")
     public void setAppSecret(String appSecret) {
         HttpClientUtil.appSecret = appSecret;
     }
@@ -103,6 +103,7 @@ public class HttpClientUtil {
      * @return 返回session_key & open_id
      */
     public static String wxLoginCode2Session(String jsonCode) throws JsonProcessingException {
+        logger.info("Calling wx.request() for code2Session service");
         ObjectMapper mapper = new ObjectMapper();
         Map<String, String> requestMap = new HashMap<>();
         requestMap.put(Constant.JS_CODE, jsonCode);
