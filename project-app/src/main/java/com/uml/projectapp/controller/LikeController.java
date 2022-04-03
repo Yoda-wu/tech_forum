@@ -9,6 +9,7 @@ import com.uml.common.utils.ResultUtil;
 import com.uml.projectapp.service.ArticleService;
 import com.uml.projectapp.service.LikeService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 

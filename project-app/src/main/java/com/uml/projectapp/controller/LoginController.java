@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -22,8 +23,10 @@ import java.util.Map;
  * @author wuyuda
  * @date 2022-03-20 14:22
  */
-@RestController()
+
 @Api("登录相关的接口")
+@RestController()
+
 public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
