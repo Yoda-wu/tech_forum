@@ -1,8 +1,6 @@
 package com.uml.projectapp;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.uml.common.constant.ArticleState;
-import com.uml.common.constant.ArticleType;
 import com.uml.projectapp.dao.ArticleDao;
 import com.uml.projectapp.dao.UserDao;
 import com.uml.projectapp.service.ArticleService;
@@ -28,7 +26,6 @@ class ProjectAppApplicationTests {
     @Test
     void contextLoads() throws JsonProcessingException {
         System.out.println(HttpClientUtil.appSecret);
-
 
     }
     public void gender( ) throws JsonProcessingException {

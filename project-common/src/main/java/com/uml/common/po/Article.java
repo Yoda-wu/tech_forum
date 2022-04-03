@@ -69,8 +69,9 @@ public class Article extends BaseEntity {
         return uid;
     }
 
-    public void setUid(Long uid) {
+    public Article setUid(Long uid) {
         this.uid = uid;
+        return this;
     }
 
     public ArticleType getType() {

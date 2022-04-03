@@ -1,9 +1,6 @@
 package com.uml.common.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -88,7 +85,7 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
     /**
      * 主键id
      */
-    @TableId(value = ID,type = IdType.AUTO)
+    @TableId(value = ID, type = IdType.AUTO)
     protected Long id;
     /**
      * 版本号
@@ -119,6 +116,7 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
      * 逻辑删除
      */
     @TableField(value = DELETE)
+    @TableLogic(value = "0", delval = "1")
     protected boolean delete;
 
     public BaseEntity() {
@@ -138,6 +136,7 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
 
     public final void setId(Long id) {
         this.id = id;
+
     }
 
     public final int getVersion() {

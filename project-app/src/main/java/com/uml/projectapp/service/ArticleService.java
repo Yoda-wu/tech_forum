@@ -1,5 +1,7 @@
 package com.uml.projectapp.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uml.common.constant.ArticleState;
@@ -9,6 +11,7 @@ import com.uml.common.vo.ArticleListVo;
 import com.uml.common.vo.ArticleVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wuyuda
@@ -46,6 +49,13 @@ public interface ArticleService {
     public String updateArticle(Article article) throws JsonProcessingException;
 
     /**
+     * 通过id更新
+     * @param wrapper 更新条件
+     * @return 更新结果
+     */
+    public int updateById(UpdateWrapper<Article> wrapper);
+
+    /**
      * 保存文章--未发布
      *
      * @param article 文章实体
@@ -71,6 +81,21 @@ public interface ArticleService {
      * @return 页面文章列表
      */
     public ArticleListVo listPublishedArticle(Integer current, Integer size) ;
+
+    /**
+     * 删除用户的文章
+     * @param articleId 文章id
+     * @return 是否删除成功
+     */
+    public Boolean deleteArticle(Long articleId);
+
+    /**
+     * 设置浏览量
+     * @param id 文章的id
+     * @param uid 用户id
+     * @return 流量量。
+     */
+    public Long setView(Long id, Long uid);
 
 
 }

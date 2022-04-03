@@ -36,6 +36,7 @@ public class ArticleController {
 
     /**
      * 保存文章--未发布
+     *
      * @param article 文章实体
      * @return 未发布文章信息
      * @throws JsonProcessingException json处理异常
@@ -43,9 +44,9 @@ public class ArticleController {
     @PostMapping("/save")
     @ApiOperation("保存文章")
     public String saveArticle(@RequestBody
-                                  @ApiParam(value = "Article实体类", required = true)
-                                          Article article) throws JsonProcessingException {
-      return articleService.saveArticle(article);
+                              @ApiParam(value = "Article实体类", required = true)
+                                      Article article) throws JsonProcessingException {
+        return articleService.saveArticle(article);
 
     }
 
@@ -73,9 +74,24 @@ public class ArticleController {
      * @throws JsonProcessingException json处理异常
      */
     @GetMapping("/page")
-
     @ApiOperation(value = "分页查询已发布的文章", notes = "current变量的起始值是1", response = ArticleListVo.class)
     public String getPublishArticle(Integer current, Integer size) throws JsonProcessingException {
-        return ResultUtil.generateResult(ErrorCode.SUCCESS,articleService.listPublishedArticle(current, size));
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, articleService.listPublishedArticle(current, size));
     }
+
+
+    /**
+     * 删除用户文章
+     *
+     * @param articleId 文章id
+     * @return 是否删除成功
+     * @throws JsonProcessingException json处理异常
+     *                                 TODO: 以后需要完善权限验证才可以删除文章 2022.04.02
+     */
+    @PostMapping("/delete")
+    public String deleteArticle(Long articleId) throws JsonProcessingException {
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, articleService.deleteArticle(articleId));
+    }
+
+
 }
