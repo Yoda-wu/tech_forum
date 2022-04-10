@@ -1,6 +1,7 @@
 package com.uml.projectapp.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uml.common.constant.ErrorCode;
@@ -54,6 +55,67 @@ public class UserServiceImpl implements UserService {
         user.setAvatar(avatarUrl);
         user.setGender(Gender.values()[gender]);
         userDao.insert(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
+    }
+
+    @Override
+    public String userUpdate(User user) throws JsonProcessingException {
+        // 更新用户信息 -- 直接传入对象
+        userDao.updateById(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
+    }
+
+    @Override
+    public int updateById(UpdateWrapper<User> wrapper) {
+        // 通过id更新文章，在数据库中更新某个字段
+        return userDao.update(null,wrapper);
+    }
+
+    @Override
+    public String userUpdateNameById(String name, Integer id) throws JsonProcessingException {
+        User user = userDao.selectById(id);
+        user.setName(name);
+        userDao.updateById(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
+    }
+
+    @Override
+    public String userUpdatePhoneById(String phone, Integer id) throws JsonProcessingException {
+        User user = userDao.selectById(id);
+        user.setPhone(phone);
+        userDao.updateById(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
+    }
+
+    @Override
+    public String userUpdateAvatarById(String avatar, Integer id) throws JsonProcessingException {
+        User user = userDao.selectById(id);
+        user.setAvatar(avatar);
+        userDao.updateById(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
+    }
+
+    @Override
+    public String userUpdateGenderById(Integer gender, Integer id) throws JsonProcessingException {
+        User user = userDao.selectById(id);
+        user.setGender(Gender.values()[gender]);
+        userDao.updateById(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
+    }
+
+    @Override
+    public String userUpdateDescById(String desc, Integer id) throws JsonProcessingException {
+        User user = userDao.selectById(id);
+        user.setDesc(desc);
+        userDao.updateById(user);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
+    }
+
+    @Override
+    public String userUpdateSchoolById(String school, Integer id) throws JsonProcessingException {
+        User user = userDao.selectById(id);
+        user.setSchool(school);
+        userDao.updateById(user);
         return ResultUtil.generateResult(ErrorCode.SUCCESS,user);
     }
 }
