@@ -2,7 +2,6 @@
 spring:
   profiles:
     include: config
-
   application:
     name: project-app
   datasource:
@@ -21,7 +20,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-
   redis:
     database: 1
     host: 120.78.240.226
@@ -34,8 +32,6 @@ spring:
         max-wait: 1000ms
       shutdown-timeout: 100ms
     password: umlredispassword
-
-
 
 
 server:

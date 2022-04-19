@@ -9,5 +9,30 @@
       "name": "wechat.miniprogram.appId",
       "type": "java.lang.String",
       "description": "Description for wechat.miniprogram.appId."
+    },
+    {
+      "name": "aliyun.oss.accessKeyId",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.oss.accessKeyId."
+    },
+    {
+      "name": "aliyun.oss.domain",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.oss.domain."
+    },
+    {
+      "name": "aliyun.oss.endPoint",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.oss.endPoint."
+    },
+    {
+      "name": "aliyun.oss.accessKeySecret",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.oss.accessKeySecret."
+    },
+    {
+      "name": "aliyun.oss.bucketName",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.oss.bucketName."
     }
   ] }

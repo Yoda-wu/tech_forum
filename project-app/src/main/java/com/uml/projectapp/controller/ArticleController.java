@@ -6,6 +6,7 @@ import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Article;
 import com.uml.common.utils.ResultUtil;
 import com.uml.common.vo.ArticleListVo;
+import com.uml.projectapp.service.AliyunOssService;
 import com.uml.projectapp.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,9 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
 
 /**
  * @author wuyuda
@@ -22,15 +26,17 @@ import org.springframework.web.bind.annotation.*;
 @Api("文章相关的接口")
 @RestController
 @RequestMapping(value = "/article", produces = "application/json;charset=UTF-8")
+@SuppressWarnings("unused")
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
-    private final ObjectMapper objectMapper;
 
-    ArticleController(ArticleService articleService, ObjectMapper objectMapper) {
+    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+
+    ArticleController(ArticleService articleService) {
         this.articleService = articleService;
-        this.objectMapper = objectMapper;
+
     }
 
     /**

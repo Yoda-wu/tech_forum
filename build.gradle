@@ -1,12 +1,10 @@
-
-
 plugins {
     id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
-tasks.forEach{
-    it.enabled=false
+tasks.forEach {
+    it.enabled = false
 }
 group = 'com.uml'
 version = '0.0.2-SNAPSHOT'
@@ -51,8 +49,9 @@ subprojects {
         // redis缓存
         implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.6.3'
         implementation 'org.springframework.boot:spring-boot-starter-cache'
+        implementation 'com.aliyun.oss:aliyun-sdk-oss:3.10.2'
+
         // Configuration 注解处理器
-        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {

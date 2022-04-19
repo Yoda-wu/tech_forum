@@ -2,3 +2,13 @@ wechat:
   miniprogram:
     appId: wxfb64b9073645a7d2
     appSecret: 3e235a52dd5a11a0ded7ff003f7e7a9f
+
+
+
+aliyun:
+  oss:
+    domain: scut-bbs-images.oss-cn-shenzhen.aliyuncs.com
+    endPoint: oss-cn-shenzhen.aliyuncs.com
+    accessKeyId: LTAI5tAgJ5zVdoTT6tizwuks
+    accessKeySecret: ANWxTH962r2M6IIvp4ZiN1IFtMG00b
+    bucketName: scut-bbs-images
