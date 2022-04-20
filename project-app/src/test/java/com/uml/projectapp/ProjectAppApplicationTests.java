@@ -36,7 +36,6 @@ class ProjectAppApplicationTests {
 
     @Test
     void contextLoads() throws JsonProcessingException {
-        aliyunOssService.deleteImage("https://scut-bbs-images.oss-cn-shenzhen.aliyuncs.com/d90f4e9589e4415980a701a52223e8f5image-20200406184656917.png");
     }
 
     @Test

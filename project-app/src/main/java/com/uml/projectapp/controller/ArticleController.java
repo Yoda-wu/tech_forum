@@ -1,12 +1,10 @@
 package com.uml.projectapp.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Article;
 import com.uml.common.utils.ResultUtil;
 import com.uml.common.vo.ArticleListVo;
-import com.uml.projectapp.service.AliyunOssService;
 import com.uml.projectapp.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +12,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.HashMap;
 
@@ -96,6 +94,19 @@ public class ArticleController {
     @PostMapping("/delete")
     public String deleteArticle(Long articleId) throws JsonProcessingException {
         return ResultUtil.generateResult(ErrorCode.SUCCESS, articleService.deleteArticle(articleId));
+    }
+
+    /**
+     * 设置文章浏览量
+     *
+     * @param articleId 文章id
+     * @param uid       用户id
+     * @return 浏览量
+     * @throws JsonProcessingException json处理异常
+     */
+    @PostMapping("/setView")
+    public String increaseView(Long articleId, Long uid) throws JsonProcessingException {
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, articleService.setView(articleId, uid));
     }
 
 

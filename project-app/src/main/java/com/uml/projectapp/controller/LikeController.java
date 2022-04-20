@@ -31,6 +31,15 @@ public class LikeController {
         this.likeService = likeService;
     }
 
+    /**
+     * 点赞的api
+     *
+     * @param type 点赞对象的类型取值为 {article, comment}
+     * @param id   点赞对象的id
+     * @param uid  点赞的用户
+     * @return 点赞结果
+     * @throws JsonProcessingException json处理异常
+     */
     @PostMapping("/like")
     @ResponseBody
     public String like(String type, Long id, Long uid) throws JsonProcessingException {
@@ -44,7 +53,7 @@ public class LikeController {
         map.put(Constant.LIKE_NUM, likeNumber);
         map.put(Constant.LIKE_STATE, userLikeState);
         // 更新数据库中的点赞数。
-        articleService.updateById(new UpdateWrapper<Article>().eq("id",id).set("likes", likeNumber));
+        articleService.updateById(new UpdateWrapper<Article>().eq("id", id).set("likes", likeNumber));
         // 返回结果。
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
