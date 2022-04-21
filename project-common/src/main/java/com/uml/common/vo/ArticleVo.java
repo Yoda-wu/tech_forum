@@ -18,9 +18,9 @@ public class ArticleVo extends Article {
     public ArticleVo() {
     }
 
-    public ArticleVo(Long id, int version, Date createTime, Date updateTime, boolean delete, Long uid, ArticleType type, String title, String content, String firstPicture, int likes, int views, ArticleState state, String username, String avatar) {
-        super(id, version, createTime, updateTime, delete, uid, type, title, content, firstPicture, likes, views, state);
-        this.name = username;
+    public ArticleVo(Long id, int version, Date createTime, Date updateTime, boolean delete, Long uid, ArticleType type, String title, String content, String firstPicture, int likes, int views, ArticleState state, int commentNumber, String name, String avatar) {
+        super(id, version, createTime, updateTime, delete, uid, type, title, content, firstPicture, likes, views, state, commentNumber);
+        this.name = name;
         this.avatar = avatar;
     }
 
