@@ -25,7 +25,7 @@ public class Article extends BaseEntity {
     public static final String LIKES = "`likes`";
     public static final String VIEWS = "`views`";
     public static final String STATE = "`state`";
-
+    public static final String COMMENT_NUMBER = "`comment_number`";
     @TableField(UID)
     private Long uid;
 
@@ -50,10 +50,13 @@ public class Article extends BaseEntity {
     @TableField(STATE)
     private ArticleState state;
 
+    @TableField(COMMENT_NUMBER)
+    private int commentNumber;
+
     public Article() {
     }
 
-    public Article(Long id, int version, Date createTime, Date updateTime, boolean delete, Long uid, ArticleType type, String title, String content, String firstPicture, int likes, int views, ArticleState state) {
+    public Article(Long id, int version, Date createTime, Date updateTime, boolean delete, Long uid, ArticleType type, String title, String content, String firstPicture, int likes, int views, ArticleState state, int commentNumber) {
         super(id, version, createTime, updateTime, delete);
         this.uid = uid;
         this.type = type;
@@ -63,6 +66,16 @@ public class Article extends BaseEntity {
         this.likes = likes;
         this.views = views;
         this.state = state;
+        this.commentNumber = commentNumber;
+    }
+
+    public int getCommentNumber() {
+        return commentNumber;
+    }
+
+    public Article setCommentNumber(int commentNumber) {
+        this.commentNumber = commentNumber;
+        return this;
     }
 
     public Long getUid() {
@@ -140,8 +153,7 @@ public class Article extends BaseEntity {
     @Override
     public String toString() {
         return "Article{" +
-                "id=" + id +
-                ", uid=" + uid +
+                "uid=" + uid +
                 ", type=" + type +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
@@ -149,6 +161,8 @@ public class Article extends BaseEntity {
                 ", likes=" + likes +
                 ", views=" + views +
                 ", state=" + state +
+                ", commentNumber=" + commentNumber +
+                ", id=" + id +
                 '}';
     }
 }

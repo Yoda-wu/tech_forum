@@ -2,6 +2,7 @@ package com.uml.projectapp.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.uml.common.po.Comment;
+import com.uml.common.vo.CommentVo;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +22,11 @@ public interface CommentDao extends BaseMapper<Comment> {
      * @param size      页面大小
      * @return 该文章的所所有id
      */
-    @Select("select a.* " +
-            "from comment as a " +
+    @Select("select a.content,a.id, b.avatar, b.name" +
+            "from comment as a , user as b" +
             "where article_id = #{articleId} and parent_id = #{articleId} " +
             "limit #{current}, #{size} ")
-    public List<Comment> listCommentByArticleId(Long articleId, Integer current, Integer size);
+    public List<CommentVo> listCommentByArticleId(Long articleId, Integer current, Integer size);
 
     /**
      * 获取该文章的某个评论的子评论
@@ -35,11 +36,11 @@ public interface CommentDao extends BaseMapper<Comment> {
      * @param size     页面大小
      * @return 子评论
      */
-    @Select("select a.* " +
-            "from comment as a " +
+    @Select("select a.content,a.id, b.avatar, b.name " +
+            "from comment as a , user as b" +
             "where parent_id = #{articleId} " +
             "limit #{current}, #{size} ")
-    public List<Comment> listCommentByParentId(Long parentId, Integer current, Integer size);
+    public List<CommentVo> listCommentByParentId(Long parentId, Integer current, Integer size);
 
     /**
      * 统计该文章的评论数包括子评论
