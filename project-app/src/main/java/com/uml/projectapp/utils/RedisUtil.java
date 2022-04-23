@@ -1,12 +1,13 @@
 package com.uml.projectapp.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
@@ -18,10 +19,10 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
 
-    private  static RedisTemplate<String,Object> redisTemplate;
+    private static RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    RedisUtil(RedisTemplate<String,Object> redisTemplate){
+    RedisUtil(RedisTemplate<String, Object> redisTemplate) {
         RedisUtil.redisTemplate = redisTemplate;
     }
 
@@ -200,5 +201,25 @@ public class RedisUtil {
         return redisTemplate.opsForSet().size(key);
     }
 
+    /**
+     * 一个redis连接完成多个事务
+     *
+     * @param sessionCallback 会话回调
+     */
+    public static void sessionCallback(SessionCallback<?> sessionCallback) {
+        redisTemplate.execute(sessionCallback);
+    }
+
+    public static Set<Object> zSetRange(String key, int offset, int limit) {
+        return redisTemplate.opsForZSet().reverseRange(key, offset, offset + limit - 1);
+    }
+
+    public static Double zSetScore(String key, Object member) {
+        return redisTemplate.opsForZSet().score(key, member);
+    }
+
+    public static Long zSetSize(String key) {
+        return redisTemplate.opsForZSet().size(key);
+    }
 }
 

@@ -23,7 +23,7 @@ public class ResultUtil {
      * @throws JsonProcessingException json处理异常
      */
     public static String generateSuccessResult() throws JsonProcessingException {
-        return generateResult(ErrorCode.SUCCESS, new Object());
+        return generateResult(ErrorCode.SUCCESS, null);
     }
 
     /**
@@ -33,7 +33,7 @@ public class ResultUtil {
      * @throws JsonProcessingException json处理异常
      */
     public static String generateErrorResult() throws JsonProcessingException {
-        return generateResult(ErrorCode.FAIL, new Object());
+        return generateResult(ErrorCode.FAIL, null);
     }
 
     /**

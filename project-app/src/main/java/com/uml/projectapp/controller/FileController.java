@@ -7,6 +7,7 @@ import com.uml.projectapp.service.AliyunOssService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author wuyuda
  * @date 2022-04-19 16:57
  */
-@RestController("/file")
+@RestController
+@RequestMapping("file")
 public class FileController {
     private final AliyunOssService aliyunOssService;
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);

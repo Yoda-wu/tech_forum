@@ -8,21 +8,21 @@ CREATE TABLE `user` (
 	`open_id` VARCHAR(32) COMMENT '微信id',
 	`avatar` VARCHAR(128) COMMENT '头像',
 	`name` VARCHAR(12) COMMENT '昵称',
-	`phone` VARCHAR(11) COMMENT '手机号码',
-	`gender` VARCHAR(10) COMMENT '性别',
-	`desc` VARCHAR(120) COMMENT '简介',
-	`school` VARCHAR(10) COMMENT '学院',
-	`version` INT UNSIGNED  DEFAULT '0' NOT NULL COMMENT '版本号',
-	`create_time` DATETIME DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
-	`update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	`delete` BOOLEAN DEFAULT FALSE COMMENT '是否删除',
-	PRIMARY KEY(`id`)
-)ENGINE=INNODB DEFAULT CHARSET=utf8;
+	`phone` varchar(11) comment '手机号码',
+	`gender` VARCHAR(10) comment '性别',
+	`desc` varchar(120) comment '简介',
+	`school` varchar(10) comment '学院',
+	`version` int unsigned  DEFAULT '0' not null comment '版本号',
+	`create_time` datetime default current_timestamp  comment '创建时间',
+	`update_time` datetime default current_timestamp on update current_timestamp comment '更新时间',
+	`delete` boolean default false comment '是否删除',
+	primary key(`id`)
+)engine=innodb default charset=utf8;
 
 ------------------
 -- 插入用户数据 -- 
 ------------------
-INSERT INTO `user` (`id`,`open_id`,`avatar`,`name`,`phone`,`gender`,`desc`,`school`)VALUES(
+insert into `user` (`id`,`open_id`,`avatar`,`name`,`phone`,`gender`,`desc`,`school`)values(
 	'1354971607569526785','oodIh5OfOCuNoBJs84DoyzUEKQQY','127.0.0.1:8089/project/img/avatar.jpg',
 	'KennyS','19924685310','MALE',
 	'这是测试用户1','软件学院'
@@ -52,17 +52,17 @@ INSERT INTO `user` (`open_id`,`avatar`,`name`,`phone`,`gender`,`desc`,`school` )
 -----------------
 -- 创建文章表 -- 
 -----------------
-DROP TABLE IF EXISTS `article`;
-CREATE TABLE `article`(
+drop table if exists `article`;
+create table `article`(
 	`id`  BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '文章id',
 	`uid`  BIGINT(20) NOT NULL COMMENT '用户id',
-	`type` VARCHAR(20) COMMENT '类型',
-	`title` VARCHAR(20) NOT NULL COMMENT '文章标题',
-	`content` LONGTEXT COMMENT '内容',
-	`first_picture` VARCHAR(128) COMMENT '首图',
-	`likes` INT DEFAULT '0' COMMENT '点赞数',
-	`views` INT DEFAULT '0' COMMENT '浏览次数',
-	`state` VARCHAR(16) COMMENT '帖子状态',
+	`type` VARCHAR(20) comment '类型',
+	`title` varchar(20) not null comment '文章标题',
+	`content` longtext comment '内容',
+	`first_picture` varchar(128) comment '首图',
+	`likes` int default '0' comment '点赞数',
+	`views` int default '0' comment '浏览次数',
+	`state` VARCHAR(16) comment '帖子状态',
 	`version` INT UNSIGNED DEFAULT '0' NOT NULL COMMENT '版本号',
 	`create_time` DATETIME DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
 	`update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -73,15 +73,21 @@ CREATE TABLE `article`(
 ------------------
 -- 插入文章数据 -- 
 ------------------
-INSERT INTO `article` (`id` , `uid` , `type`, `title`, `content`, `first_picture`, `state`  )
+insert into `article` (`id` , `uid` , `type`, `title`, `content`, `first_picture`, `state`  )
 VALUES(
-	'235451360349526785', '1354971607569526785', NULL, '测试标题1', '欢迎使用这个小程序来发布你的技术文章！开始书写你的博客吧','127.0.0.1:8089/img/fp/fp1.jpg','1'
+	'235451360349526785', '1354971607569526785', 'CODING', '测试标题1', '欢迎使用这个小程序来发布你的技术文章！开始书写你的博客吧','127.0.0.1:8089/img/fp/fp1.jpg','PUBLISHED'
 )
 
 INSERT INTO `article` (`uid` , `type`, `title`, `content`, `first_picture`, `state`  )
 VALUES(
-	'1354971607569526786', '技术', '测试标题2', '欢迎使用这个小程序来发布你的技术文章！开始书写你的博客吧','127.0.0.1:8089/img/fp/fp2.jpg','1'
+	'1354971607569526786', 'CODING', '测试标题2', '欢迎使用这个小程序来发布你的技术文章！开始书写你的博客吧','127.0.0.1:8089/img/fp/fp2.jpg','PUBLISHED'
 )
+
+INSERT INTO `article` (`uid` , `type`, `title`, `content`, `first_picture`, `state`  )
+VALUES(
+	'1354971607569526786', 'CODING', '测试标题2', '欢迎使用这个小程序来发布你的技术文章！开始书写你的博客吧','127.0.0.1:8089/img/fp/fp2.jpg','PUBLISHED'
+)
+
 
 --------------------
 -- 创建帖子标签表 -- 
@@ -98,6 +104,10 @@ CREATE TABLE `article_tag`(
 	index(tag_name),
 	PRIMARY KEY(`id`,`article_id`)
 )ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+
+
+
+
 
 -----------------
 -- 创建评论表  -- 
@@ -162,5 +172,12 @@ create table `chat`(
 )ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 
 
+select * from `user` where `open_id` = "oodIh5OfOCuNoBJs84DoyzUEKeQY";
+
+
+UPDATE `article` set `state`="PUBLISHED" where id = 6;
+
+
+UPDATE `article` SET `uid`=1354971607569526785, `type`="SOFTWARE", `title`="新的风暴已经出现", `content`="怎么能够停滞不前,穿越时空，竭尽全力", `likes`=0, `views`=0, `state`="SAVING", version=2 WHERE id=6 AND version=1 AND `delete`=0;
 
 

@@ -10,6 +10,8 @@ import com.uml.common.vo.CommentVo;
 import com.uml.projectapp.dao.CommentDao;
 import com.uml.projectapp.service.ArticleService;
 import com.uml.projectapp.service.CommentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentDao commentDao;
     private final ArticleService articleService;
+    private final Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
 
     public CommentServiceImpl(CommentDao commentDao, ArticleService articleService) {
         this.commentDao = commentDao;
@@ -55,20 +58,30 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentListVo listCommentByArticleId(Long articleId, Integer current, Integer size) {
+        logger.info("[CommentService]: " + size);
         List<CommentVo> commentVos = commentDao.listCommentByArticleId(articleId, current, size);
         return new CommentListVo(current, size, (long) commentVos.size(), commentVos);
     }
 
     @Override
     public int deleteComment(Comment comment) {
-        commentDao.delete(new QueryWrapper<Comment>().eq(BaseEntity.ID, comment.getId()));
+        logger.info(comment.toString());
+        commentDao.deleteComment(comment.getId());
         int commentNum = commentDao.countArticleCommentNum(comment.getArticleId());
-        articleService.updateById(new UpdateWrapper<Article>().eq(BaseEntity.ID, comment.getArticleId()));
+        articleService.updateById(new UpdateWrapper<Article>().
+                eq(BaseEntity.ID, comment.getArticleId()).
+                set(Article.COMMENT_NUMBER, commentNum)
+        );
         return commentNum;
     }
 
     @Override
     public int getSubCommentNumber(Long parentId) {
         return commentDao.countSubCommentNum(parentId);
+    }
+
+    @Override
+    public int getArticleCommentNumber(Long articleId) {
+        return commentDao.countArticleCommentNum(articleId);
     }
 }

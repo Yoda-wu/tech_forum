@@ -3,6 +3,7 @@ package com.uml.projectapp.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.uml.common.po.Comment;
 import com.uml.common.vo.CommentVo;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,9 @@ public interface CommentDao extends BaseMapper<Comment> {
      * @param size      页面大小
      * @return 该文章的所所有id
      */
-    @Select("select a.content,a.id, b.avatar, b.name" +
-            "from comment as a , user as b" +
-            "where article_id = #{articleId} and parent_id = #{articleId} " +
+    @Select("select a.content,a.id, b.avatar, b.name " +
+            "from comment as a , user as b " +
+            "where article_id = #{articleId} and parent_id = #{articleId} and b.id = a.uid " +
             "limit #{current}, #{size} ")
     public List<CommentVo> listCommentByArticleId(Long articleId, Integer current, Integer size);
 
@@ -37,8 +38,8 @@ public interface CommentDao extends BaseMapper<Comment> {
      * @return 子评论
      */
     @Select("select a.content,a.id, b.avatar, b.name " +
-            "from comment as a , user as b" +
-            "where parent_id = #{articleId} " +
+            "from comment as a , user as b " +
+            "where parent_id = #{parentId} and a.uid = b.id " +
             "limit #{current}, #{size} ")
     public List<CommentVo> listCommentByParentId(Long parentId, Integer current, Integer size);
 
@@ -64,5 +65,12 @@ public interface CommentDao extends BaseMapper<Comment> {
             "where parent_id = #{parentId} ")
     public int countSubCommentNum(Long parentId);
 
-
+    /**
+     * 删除评论
+     *
+     * @param id 评论id
+     * @return 删除结果
+     */
+    @Delete("delete from `comment` where id = #{id} or parent_id = #{id}")
+    public int deleteComment(Long id);
 }

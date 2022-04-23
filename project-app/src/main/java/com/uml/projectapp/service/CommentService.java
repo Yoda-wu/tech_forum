@@ -52,4 +52,12 @@ public interface CommentService {
      * @return 评论数
      */
     public int getSubCommentNumber(Long parentId);
+
+    /**
+     * 统计该文章的评论数
+     *
+     * @param articleId 文章id
+     * @return 评论数
+     */
+    public int getArticleCommentNumber(Long articleId);
 }

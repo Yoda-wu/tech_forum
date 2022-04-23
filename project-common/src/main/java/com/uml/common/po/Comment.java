@@ -30,7 +30,7 @@ public class Comment extends BaseEntity {
     private Long parentId;
     @TableField(CONTENT)
     private String content;
-    @TableField
+    @TableField(LIKES)
     private int likes;
 
     public Comment(Long id, int version, Date createTime, Date updateTime, boolean delete, Long uid, Long articleId, Long parentId, String content, int likes) {
