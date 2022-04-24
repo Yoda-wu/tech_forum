@@ -34,7 +34,6 @@ public class ArticleController {
 
     ArticleController(ArticleService articleService) {
         this.articleService = articleService;
-
     }
 
     /**
@@ -105,9 +104,12 @@ public class ArticleController {
      * @throws JsonProcessingException json处理异常
      */
     @PostMapping("/setView")
+    @ApiOperation("设置浏览量")
     public String increaseView(Long articleId, Long uid) throws JsonProcessingException {
         return ResultUtil.generateResult(ErrorCode.SUCCESS, articleService.setView(articleId, uid));
     }
+
+
 
 
 }

@@ -22,7 +22,6 @@ import java.util.Map;
  */
 @RestController
 @Api
-
 public class TestController {
 
     @Autowired

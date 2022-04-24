@@ -20,7 +20,7 @@ import java.util.Map;
  * @date 2022-04-23 12:39
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping(value = "user", produces = "application/json;charset=UTF-8")
 public class UserController {
     private final UserService userService;
     private final FollowService followService;

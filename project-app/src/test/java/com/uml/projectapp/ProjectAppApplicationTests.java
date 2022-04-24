@@ -2,8 +2,10 @@ package com.uml.projectapp;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Article;
 import com.uml.common.po.BaseEntity;
+import com.uml.common.utils.ResultUtil;
 import com.uml.projectapp.dao.ArticleDao;
 import com.uml.projectapp.dao.UserDao;
 import com.uml.projectapp.service.AliyunOssService;
@@ -42,8 +44,8 @@ class ProjectAppApplicationTests {
     FollowService followService;
     @Test
     void contextLoads() throws JsonProcessingException {
-        List<Map<String, Object>> followees = followService.findFollowLists(1L, 0, 1,false);
-
+        String ssssdasd = ResultUtil.generateResult(ErrorCode.SUCCESS, articleService.listPublishedArticle(0, 2));
+        System.out.println(ssssdasd);
     }
 
     @Test

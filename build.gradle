@@ -8,7 +8,6 @@ tasks.forEach {
 }
 group = 'com.uml'
 version = '0.0.2-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()

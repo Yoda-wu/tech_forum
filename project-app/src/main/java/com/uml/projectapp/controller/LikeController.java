@@ -40,7 +40,7 @@ public class LikeController {
      * @return 点赞结果
      * @throws JsonProcessingException json处理异常
      */
-    @PostMapping("/like")
+    @PostMapping(value = "/like", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String like(String type, Long id, Long uid) throws JsonProcessingException {
         // 调用service层like方法进行点赞。

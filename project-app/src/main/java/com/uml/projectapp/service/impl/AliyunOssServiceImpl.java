@@ -59,14 +59,13 @@ public class AliyunOssServiceImpl implements AliyunOssService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         logger.info("[uploadImage]=================" + url);
         return url;
     }
 
     @Override
     public String deleteImage(String url) throws JsonProcessingException {
+        logger.info("[OSSService]:============= "+url);
         client.deleteObject(aliyunBucketName, url);
         return ResultUtil.generateSuccessResult();
     }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2022-04-23 12:32
  */
 @RestController
-@RequestMapping(value = "comment", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/comment", produces = "application/json;charset=UTF-8")
 public class CommentController {
 
     private final CommentService commentService;
@@ -30,25 +30,25 @@ public class CommentController {
      * @return 成功添加的消息
      * @throws JsonProcessingException json处理异常
      */
-    @PostMapping("add")
+    @PostMapping("/add")
     public String addComment(@RequestBody Comment comment) throws JsonProcessingException {
         int commentNumber = commentService.addComment(comment);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, commentNumber);
     }
 
-    @GetMapping("get")
+    @GetMapping("/get")
     public String getComment(Long articleId, Integer current, Integer size) throws JsonProcessingException {
         CommentListVo commentListVo = commentService.listCommentByArticleId(articleId, current, size);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, commentListVo);
     }
 
-    @GetMapping("getSub")
+    @GetMapping("/getSub")
     public String getSubComment(Long parentId, Integer current, Integer size) throws JsonProcessingException {
         CommentListVo commentListVo = commentService.listCommentByParentId(parentId, current, size);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, commentListVo);
     }
 
-    @PostMapping("delete")
+    @PostMapping("/delete")
     public String deleteComment(@RequestBody Comment comment) throws JsonProcessingException {
         int commentNumber = commentService.deleteComment(comment);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, commentNumber);
