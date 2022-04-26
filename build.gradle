@@ -8,6 +8,7 @@ tasks.forEach {
 }
 group = 'com.uml'
 version = '0.0.2-SNAPSHOT'
+sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
@@ -16,6 +17,7 @@ repositories {
 dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter'
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
@@ -34,11 +36,12 @@ subprojects {
     apply plugin: 'java'
 
     dependencies {
+        implementation 'com.alibaba:fastjson:1.2.78'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-aop'
 //        implementation 'org.springframework.boot:spring-boot-starter-security'
-
+        implementation("org.apache.directory.studio:org.apache.commons.lang:2.6")
         implementation 'mysql:mysql-connector-java:8.0.24'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.0'
         implementation 'io.springfox:springfox-boot-starter:3.0.0'
@@ -52,6 +55,7 @@ subprojects {
 
         // Configuration 注解处理器
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
