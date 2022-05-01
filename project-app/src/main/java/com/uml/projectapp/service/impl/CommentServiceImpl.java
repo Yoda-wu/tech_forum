@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.uml.common.po.Article;
 import com.uml.common.po.BaseEntity;
 import com.uml.common.po.Comment;
+import com.uml.common.utils.SensitiveFilter;
 import com.uml.common.vo.CommentListVo;
 import com.uml.common.vo.CommentVo;
 import com.uml.projectapp.dao.CommentDao;
@@ -26,9 +27,11 @@ public class CommentServiceImpl implements CommentService {
     private final CommentDao commentDao;
     private final ArticleService articleService;
     private final Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
+    private final SensitiveFilter sensitiveFilter;
 
-    public CommentServiceImpl(CommentDao commentDao, ArticleService articleService) {
+    public CommentServiceImpl(CommentDao commentDao, ArticleService articleService, SensitiveFilter sensitiveFilter) {
         this.commentDao = commentDao;
+        this.sensitiveFilter = sensitiveFilter;
         this.articleService = articleService;
     }
 
@@ -37,6 +40,7 @@ public class CommentServiceImpl implements CommentService {
         if (comment == null || comment.getArticleId() == null) {
             return -1;
         }
+        comment.setContent(sensitiveFilter.filter(comment.getContent()));
         // 添加新评论
         int row = commentDao.insert(comment);
         // 获取评论数

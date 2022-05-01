@@ -12,6 +12,7 @@ import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Article;
 import com.uml.common.utils.RedisKeyUtil;
 import com.uml.common.utils.ResultUtil;
+import com.uml.common.utils.SensitiveFilter;
 import com.uml.common.vo.ArticleListVo;
 import com.uml.common.vo.ArticleVo;
 import com.uml.projectapp.dao.ArticleDao;
@@ -39,13 +40,13 @@ public class ArticleServiceImpl implements ArticleService {
      */
     private final ArticleDao articleDao;
     /**
-     * jackson将对象转换为json对象。
+     * 敏感词过滤器
      */
-    private final ObjectMapper objectMapper;
+    private final SensitiveFilter sensitiveFilter;
 
-    ArticleServiceImpl(ArticleDao articleDao, ObjectMapper objectMapper) {
+    ArticleServiceImpl(ArticleDao articleDao, SensitiveFilter sensitiveFilter) {
         this.articleDao = articleDao;
-        this.objectMapper = objectMapper;
+        this.sensitiveFilter = sensitiveFilter;
     }
 
     @Override
@@ -120,7 +121,7 @@ public class ArticleServiceImpl implements ArticleService {
         // 获取浏览量
         Long viewNumber = RedisUtil.setSize(viewKey);
         // 更新数据库文章的浏览量
-        updateById(new UpdateWrapper<Article>().eq(Constant.ID,id).set(Constant.VIEW, viewNumber));
+        updateById(new UpdateWrapper<Article>().eq(Constant.ID, id).set(Constant.VIEW, viewNumber));
         // 返回新的浏览量。
         return viewNumber;
     }
@@ -159,6 +160,7 @@ public class ArticleServiceImpl implements ArticleService {
     public String publishArticle(Article article) throws JsonProcessingException {
         // 发布非草稿箱里的文章
         if (article.getId() == null) {
+            article.setContent(sensitiveFilter.filter(article.getContent()));
             return insertArticle(article.getUid(),
                     article.getTitle(),
                     article.getContent(),

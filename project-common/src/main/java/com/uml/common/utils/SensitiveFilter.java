@@ -63,19 +63,16 @@ public class SensitiveFilter {
         TrieNode tempNode = rootNode;
         for (int i = 0; i < keyword.length(); i++) {
             char c = keyword.charAt(i);
-            logger.info("adding key word " + c);
             TrieNode subNode = tempNode.getSubNode(c);
             if (subNode == null) {
                 // 初始化子节点
                 subNode = new TrieNode();
                 tempNode.setSubNode(c, subNode);
             }
-
             // 将指针指向子节点
             tempNode = subNode;
             // 设置结束标识
             if (i == keyword.length() - 1) {
-                logger.info("setting key end.......... ");
                 tempNode.setKeyEnd(true);
             }
         }

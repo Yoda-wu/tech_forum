@@ -50,6 +50,7 @@ public interface ArticleService {
 
     /**
      * 通过id更新
+     *
      * @param wrapper 更新条件
      * @return 更新结果
      */
@@ -80,10 +81,11 @@ public interface ArticleService {
      * @param size    页面大小
      * @return 页面文章列表
      */
-    public ArticleListVo listPublishedArticle(Integer current, Integer size) ;
+    public ArticleListVo listPublishedArticle(Integer current, Integer size);
 
     /**
      * 删除用户的文章
+     *
      * @param articleId 文章id
      * @return 是否删除成功
      */
@@ -91,7 +93,8 @@ public interface ArticleService {
 
     /**
      * 设置浏览量
-     * @param id 文章的id
+     *
+     * @param id  文章的id
      * @param uid 用户id
      * @return 流量量。
      */
