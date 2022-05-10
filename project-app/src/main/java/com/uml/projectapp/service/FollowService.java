@@ -20,6 +20,16 @@ public interface FollowService {
      */
     public String followOperation(Long uid, String entityType, Long entityId, Boolean remove);
 
+    /**
+     * 查看该对象是不是关注的人
+     *
+     * @param uid 用户id
+     * @param entityType 关注的类型
+     * @param entityId 关注实体的id
+     * @return 是不是关注
+     */
+    public boolean getFolloweeState(Long uid, String entityType, Long entityId);
+
 
     /**
      * 查询用户关注的人或者查询用户的粉丝

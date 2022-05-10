@@ -8,10 +8,7 @@ import com.uml.common.po.Article;
 import com.uml.common.utils.ResultUtil;
 import com.uml.projectapp.service.ArticleService;
 import com.uml.projectapp.service.LikeService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,5 +53,10 @@ public class LikeController {
         articleService.updateById(new UpdateWrapper<Article>().eq("id", id).set("likes", likeNumber));
         // 返回结果。
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
+    }
+
+    @GetMapping("/like/getState")
+    public String getLikeState(String type, Long id, Long uid) throws JsonProcessingException {
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, likeService.userLikeState(type, id, uid));
     }
 }

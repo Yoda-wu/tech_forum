@@ -30,12 +30,15 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public String followOperation(Long uid, String entityType, Long entityId, Boolean remove) {
+
         if (remove) {
             RedisUtil.sessionCallback(new SessionCallback<>() {
                 @Override
                 public Object execute(RedisOperations operations) throws DataAccessException {
                     String followeeKey = RedisKeyUtil.generateFolloweeKey(uid, entityType);
                     String followerKey = RedisKeyUtil.generateFollowerKey(entityId, entityType);
+                    logger.info("[follow operation]:>>>>>> followee key is : "+followeeKey);
+                    logger.info("[follow operation]:>>>>>> follower key is : "+followerKey);
                     operations.multi();
                     operations.opsForZSet().remove(followeeKey, entityId, System.currentTimeMillis());
                     operations.opsForZSet().remove(followerKey, uid, System.currentTimeMillis());
@@ -49,6 +52,8 @@ public class FollowServiceImpl implements FollowService {
                 public Object execute(RedisOperations operations) throws DataAccessException {
                     String followeeKey = RedisKeyUtil.generateFolloweeKey(uid, entityType);
                     String followerKey = RedisKeyUtil.generateFollowerKey(entityId, entityType);
+                    logger.info("[follow operation]:>>>>>> followee key is : "+followeeKey);
+                    logger.info("[follow operation]:>>>>>> follower key is : "+followerKey);
                     operations.multi();
                     operations.opsForZSet().add(followeeKey, entityId, System.currentTimeMillis());
                     operations.opsForZSet().add(followerKey, uid, System.currentTimeMillis());
@@ -57,6 +62,14 @@ public class FollowServiceImpl implements FollowService {
             });
         }
         return "";
+    }
+
+    @Override
+    public boolean getFolloweeState(Long uid, String entityType, Long entityId) {
+
+        String followeeKey = RedisKeyUtil.generateFolloweeKey(uid, entityType);
+        logger.info("[follow operation - get state ]:>>>>>> followee key is : "+followeeKey);
+        return RedisUtil.zSetScore(followeeKey, entityId) != null;
     }
 
 
@@ -71,7 +84,7 @@ public class FollowServiceImpl implements FollowService {
         } else {
             key = RedisKeyUtil.generateFolloweeKey(uid, Constant.USER);
         }
-        logger.info(key);
+        logger.info("[follow list: ]>>>>>>>>>>>>>>> "+key);
         Set<Object> objects = RedisUtil.zSetRange(key, offset, limit);
         if (objects == null) {
             return null;
@@ -91,12 +104,14 @@ public class FollowServiceImpl implements FollowService {
     @Override
     public Long getFolloweeNumber(Long uid) {
         String key = RedisKeyUtil.generateFolloweeKey(uid, Constant.USER);
+        logger.info("[getFolloweeNumber : ]>>>>>>>>>>>>>>> "+key);
         return RedisUtil.zSetSize(key);
     }
 
     @Override
     public Long getFollowerNumber(Long uid) {
         String key = RedisKeyUtil.generateFollowerKey(uid, Constant.USER);
+        logger.info("[getFollowerNumber: ]>>>>>>>>>>>>>>> "+key);
         return RedisUtil.zSetSize(key);
     }
 

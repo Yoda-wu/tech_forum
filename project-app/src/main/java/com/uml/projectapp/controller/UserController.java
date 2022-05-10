@@ -103,4 +103,9 @@ public class UserController {
         Long followeeNumber = followService.getFollowerNumber(uid);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, followeeNumber);
     }
+
+    @GetMapping("followeeState")
+    public String getFolloweeState(Long uid, Long entityId) throws JsonProcessingException {
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,followService.getFolloweeState(uid,Constant.USER,entityId));
+    }
 }

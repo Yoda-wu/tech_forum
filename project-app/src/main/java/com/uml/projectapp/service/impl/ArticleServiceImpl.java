@@ -110,6 +110,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Long setView(Long id, Long uid) {
+        logger.info("[Setting views]...........");
         // 设置文章浏览量的键值
         String viewKey = RedisKeyUtil.generateKey(Constant.ARTICLE + RedisKeyUtil.SPLIT + Constant.VIEW, id);
         // 设置用户浏览的键值 -- 为了历史浏览功能
@@ -120,6 +121,7 @@ public class ArticleServiceImpl implements ArticleService {
         RedisUtil.addSetItem(userViewKey, id);
         // 获取浏览量
         Long viewNumber = RedisUtil.setSize(viewKey);
+        logger.info("[Setting views]..........."+viewNumber);
         // 更新数据库文章的浏览量
         updateById(new UpdateWrapper<Article>().eq(Constant.ID, id).set(Constant.VIEW, viewNumber));
         // 返回新的浏览量。
@@ -161,6 +163,7 @@ public class ArticleServiceImpl implements ArticleService {
         // 发布非草稿箱里的文章
         if (article.getId() == null) {
             article.setContent(sensitiveFilter.filter(article.getContent()));
+            article.setTitle(sensitiveFilter.filter(article.getTitle()));
             return insertArticle(article.getUid(),
                     article.getTitle(),
                     article.getContent(),

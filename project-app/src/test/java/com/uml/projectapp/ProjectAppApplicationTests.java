@@ -1,5 +1,6 @@
 package com.uml.projectapp;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.uml.common.constant.QuestionType;
@@ -58,7 +59,8 @@ class ProjectAppApplicationTests {
     SensitiveFilter sensitiveFilter;
     @Test
     void contextLoads() throws JsonProcessingException {
-        getQuestionLib();
+
+
     }
 
     /**
