@@ -23,7 +23,7 @@ public interface CommentDao extends BaseMapper<Comment> {
      * @param size      页面大小
      * @return 该文章的所所有id
      */
-    @Select("select a.content,a.id, b.avatar, b.name " +
+    @Select("select a.content,a.id, b.avatar, b.name , b.id as uid" +
             "from comment as a , user as b " +
             "where article_id = #{articleId} and parent_id = #{articleId} and b.id = a.uid " +
             "limit #{current}, #{size} ")

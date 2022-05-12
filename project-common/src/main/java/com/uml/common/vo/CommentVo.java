@@ -13,16 +13,26 @@ import java.util.List;
 public class CommentVo implements Serializable {
     private String name;
     private String avatar;
+    private Long uid;
     private Long id;
     private String content;
     public CommentVo() {
     }
 
-    public CommentVo(String name, String avatar, Long id, String content) {
+    public CommentVo(String name, String avatar, Long uid, Long id, String content) {
         this.name = name;
         this.avatar = avatar;
+        this.uid = uid;
         this.id = id;
         this.content = content;
+    }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getName() {

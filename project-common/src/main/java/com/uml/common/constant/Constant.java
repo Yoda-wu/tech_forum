@@ -80,4 +80,6 @@ public class Constant {
     public static final String LIKE = "likes";
 
     public static final String ID = "id";
+
+    public static final String TICKET = "ticket";
 }

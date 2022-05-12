@@ -2,8 +2,10 @@ package com.uml.projectapp.service;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.uml.common.po.Article;
+import com.uml.common.po.LoginTicket;
 import com.uml.common.po.User;
+
+import java.util.Map;
 
 /**
  * @author wuyuda
@@ -28,7 +30,7 @@ public interface UserService {
      * @return 结果实体
      * @throws JsonProcessingException json处理异常。
      */
-    public String userLogin(String openid, String name, String avatarUrl, Integer gender) throws JsonProcessingException;
+    public Map<String,Object> userLogin(String openid, String name, String avatarUrl, Integer gender) throws JsonProcessingException;
 
 
     /**
@@ -96,4 +98,18 @@ public interface UserService {
      * @return 结果实体
      */
     public String userUpdateSchoolById(String school,Integer id) throws JsonProcessingException;
+
+    /**
+     * 获取登录凭证的对象
+     * @param ticket 凭证
+     * @return 登陆凭证对象
+     */
+    public LoginTicket getTicket(String ticket);
+
+    /**
+     * 通过id查询用户
+     * @param uid 用户id
+     * @return 用户
+     */
+    public User findUserById(Long uid);
 }

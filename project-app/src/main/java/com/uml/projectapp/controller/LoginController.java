@@ -3,7 +3,9 @@ package com.uml.projectapp.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uml.common.constant.Constant;
+import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.User;
+import com.uml.common.utils.ResultUtil;
 import com.uml.projectapp.utils.HttpClientUtil;
 import com.uml.projectapp.service.UserService;
 import io.swagger.annotations.Api;
@@ -49,9 +51,10 @@ public class LoginController {
         logger.info(" =================== " + map);
         Map<?,?> responseMap = objectMapper.readValue(HttpClientUtil.wxLoginCode2Session((String) map.get(Constant.JS_CODE)), Map.class);
         if (responseMap.get("openid") == null) {
-            return "Error";
+            return ResultUtil.generateResult(ErrorCode.SUCCESS,"openid 为空");
         }
         logger.info(" =================== " + responseMap.get("openid"));
-        return userService.userLogin((String) responseMap.get("openid"), (String) map.get("name"), (String) map.get("avatarUrl"), (Integer) map.get("gender"));
+        Map<String, Object> stringObjectMap = userService.userLogin((String) responseMap.get("openid"), (String) map.get("name"), (String) map.get("avatarUrl"), (Integer) map.get("gender"));
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,stringObjectMap);
     }
 }

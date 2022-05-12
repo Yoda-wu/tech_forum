@@ -11,6 +11,8 @@ public class RedisKeyUtil {
     public static final String SPLIT = ":";
     public static final String PREFIX_FOLLOWEE = "followee";
     public static final String PREFIX_FOLLOWER = "follower";
+    public static final String PREFIX_TICKET = "ticket";
+    public static final String PREFIX_USER = "user";
 
     public static String generateKey(String entityType, Long entityId) {
         return entityType + SPLIT + entityId;
@@ -36,5 +38,18 @@ public class RedisKeyUtil {
      */
     public static String generateFollowerKey(Long entityId, String entityType) {
         return PREFIX_FOLLOWER + SPLIT + entityType + SPLIT + entityId;
+    }
+
+    /**
+     * 登陆凭证
+     * @param ticket 凭证
+     * @return 登陆凭证的键值
+     */
+    public static String getTicketKey(String ticket){
+        return PREFIX_TICKET + SPLIT + ticket;
+    }
+
+    public static String getUserKey(Long uid){
+        return PREFIX_USER + SPLIT + uid;
     }
 }
