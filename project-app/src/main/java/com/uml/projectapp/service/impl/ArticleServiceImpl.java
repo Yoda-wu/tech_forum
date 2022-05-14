@@ -22,7 +22,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wuyuda
@@ -63,17 +65,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public String insertArticle(Long uid, String title, String content, String type, ArticleState state) throws JsonProcessingException {
-        // 添加一个新的文章
-        Article article = new Article();
-        // 设置好文章的用户id
-        article.setUid(uid);
-        // 文章的标题
-        article.setTitle(title);
-        // 文章的内容
-        article.setContent(content);
-        // 文章的类型
-        article.setType(ArticleType.valueOf(type));
+    public String insertArticle(Article article, ArticleState state) throws JsonProcessingException {
         // 文章的状态
         article.setState(state);
         // 调用dao层往数据库中加插入文章
@@ -109,7 +101,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Long setView(Long id, Long uid) {
+    public Map<String,Object> setView(Long id, Long uid) {
+        Map<String,Object> map = new HashMap<>();
         logger.info("[Setting views]...........");
         // 设置文章浏览量的键值
         String viewKey = RedisKeyUtil.generateKey(Constant.ARTICLE + RedisKeyUtil.SPLIT + Constant.VIEW, id);
@@ -125,7 +118,8 @@ public class ArticleServiceImpl implements ArticleService {
         // 更新数据库文章的浏览量
         updateById(new UpdateWrapper<Article>().eq(Constant.ID, id).set(Constant.VIEW, viewNumber));
         // 返回新的浏览量。
-        return viewNumber;
+        map.put("ViewNumber",viewNumber);
+        return map;
     }
 
     @Override
@@ -146,10 +140,7 @@ public class ArticleServiceImpl implements ArticleService {
     public String saveArticle(Article article) throws JsonProcessingException {
         // 发布非草稿箱里的文章
         if (article.getId() == null) {
-            return insertArticle(article.getUid(),
-                    article.getTitle(),
-                    article.getContent(),
-                    article.getType().name(),
+            return insertArticle(article,
                     ArticleState.SAVING);
         } else {
             article.setState(ArticleState.SAVING);
@@ -166,10 +157,7 @@ public class ArticleServiceImpl implements ArticleService {
             logger.info("[ID 为空] --- ");
             article.setContent(sensitiveFilter.filter(article.getContent()));
             article.setTitle(sensitiveFilter.filter(article.getTitle()));
-            return insertArticle(article.getUid(),
-                    article.getTitle(),
-                    article.getContent(),
-                    article.getType().name(),
+            return insertArticle(article,
                     ArticleState.PUBLISHED);
         } else {
             article.setState(ArticleState.PUBLISHED);

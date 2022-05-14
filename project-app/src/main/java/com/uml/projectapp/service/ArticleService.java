@@ -29,15 +29,12 @@ public interface ArticleService {
     /**
      * 往数据库里新增一篇文章
      *
-     * @param uid     用户id
-     * @param title   文章标题
-     * @param content 内容
-     * @param type    类型
+     * @param article 文章
      * @param state   状态
      * @return 增加是否成功的消息
      * @throws JsonProcessingException json处理异常
      */
-    public String insertArticle(Long uid, String title, String content, String type, ArticleState state) throws JsonProcessingException;
+    public String insertArticle(Article article, ArticleState state) throws JsonProcessingException;
 
     /**
      * 更改文章
@@ -98,7 +95,7 @@ public interface ArticleService {
      * @param uid 用户id
      * @return 流量量。
      */
-    public Long setView(Long id, Long uid);
+    public Map<String,Object>  setView(Long id, Long uid);
 
 
 }

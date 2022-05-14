@@ -9,6 +9,9 @@ import com.uml.projectapp.service.CommentService;
 import net.bytebuddy.implementation.bytecode.constant.IntegerConstant;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author wuyuda
  * @date 2022-04-23 12:32
@@ -33,7 +36,10 @@ public class CommentController {
     @PostMapping("/add")
     public String addComment(@RequestBody Comment comment) throws JsonProcessingException {
         int commentNumber = commentService.addComment(comment);
-        return ResultUtil.generateResult(ErrorCode.SUCCESS, commentNumber);
+        Map<String,Object> map = new HashMap<>();
+        map.put("comment",comment);
+        map.put("comment number",commentNumber);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 
     @GetMapping("/get")
@@ -51,18 +57,24 @@ public class CommentController {
     @PostMapping("/delete")
     public String deleteComment(@RequestBody Comment comment) throws JsonProcessingException {
         int commentNumber = commentService.deleteComment(comment);
-        return ResultUtil.generateResult(ErrorCode.SUCCESS, commentNumber);
+        Map<String,Object> map = new HashMap<>();
+        map.put("comment number",commentNumber);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 
     @GetMapping("getNum")
     public String getArticleCommentNumber(Long articleId) throws JsonProcessingException {
         int commentNumber = commentService.getArticleCommentNumber(articleId);
-        return ResultUtil.generateResult(ErrorCode.SUCCESS, commentNumber);
+        Map<String,Object> map = new HashMap<>();
+        map.put("comment number",commentNumber);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 
     @GetMapping("getSubNum")
     public String getSubCommentNumber(Long parentId) throws JsonProcessingException {
         int commentNumber = commentService.getSubCommentNumber(parentId);
-        return ResultUtil.generateResult(ErrorCode.SUCCESS, commentNumber);
+        Map<String,Object> map = new HashMap<>();
+        map.put("comment number",commentNumber);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 }
