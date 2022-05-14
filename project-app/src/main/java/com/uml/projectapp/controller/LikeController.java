@@ -43,7 +43,7 @@ public class LikeController {
     @PostMapping(value = "/like", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String like(String type, Long id, Long uid) throws JsonProcessingException {
-
+        logger.info(type+"    "+ id+"   "+uid);
         // 调用service层like方法进行点赞。
         likeService.like(type, id, uid);
         // 从redis中获取点赞数量以及用户点赞状态。
