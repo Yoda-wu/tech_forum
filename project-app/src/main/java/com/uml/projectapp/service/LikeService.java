@@ -1,7 +1,5 @@
 package com.uml.projectapp.service;
 
-import java.util.Map;
-
 /**
  * @author wuyuda
  * @date 2022-03-19 16:11
@@ -24,7 +22,7 @@ public interface LikeService {
      * @param id   点赞对象的id
      * @return 点赞数
      */
-    public Map<String,Object> countLike(String type, Long id);
+    public long countLike(String type, Long id);
 
     /**
      * 统计某个用户对某个可点赞对象的点赞状态
@@ -34,5 +32,5 @@ public interface LikeService {
      * @param uid  点赞的用户id；
      * @return 0 --- 未点赞  1 --- 已点赞
      */
-    public Map<String,Object> userLikeState(String type, Long id, Long uid);
+    public int userLikeState(String type, Long id, Long uid);
 }

@@ -8,9 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author wuyuda
  * @date 2022-04-02 21:37
@@ -38,26 +35,20 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public Map<String,Object> countLike(String type, Long id) {
-        Map<String,Object> map = new HashMap<>();
+    public long countLike(String type, Long id) {
         // 准备点赞的键值
         String likeKey = RedisKeyUtil.generateKey(type + RedisKeyUtil.SPLIT + Constant.LIKE, id);
         logger.info("[countLike]>>>> key is :  "+likeKey);
         // 统计点赞数
-        Long likeNumber = RedisUtil.setSize(likeKey);
-        map.put("likeNumber",likeNumber);
-        return map;
+        return RedisUtil.setSize(likeKey);
     }
 
     @Override
-    public Map<String,Object> userLikeState(String type, Long id, Long uid) {
-        Map<String,Object> map = new HashMap<>();
+    public int userLikeState(String type, Long id, Long uid) {
         // 准备点赞的键值
         String likeKey = RedisKeyUtil.generateKey(type + RedisKeyUtil.SPLIT + Constant.LIKE, id);
         logger.info("[userLikeState]>>>> key is :  "+likeKey);
         // 返回该用户是否在对应的集合中，如果是则认为该用户点赞了，如果不是则认为该用户没点赞。
-        int likeState = RedisUtil.isSetMember(likeKey, uid) ? 1 : 0;
-        map.put("likeState",likeState);
-        return map;
+        return RedisUtil.isSetMember(likeKey, uid) ? 1 : 0;
     }
 }
