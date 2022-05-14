@@ -3,8 +3,11 @@ package com.uml.projectapp;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import com.uml.common.constant.ArticleType;
 import com.uml.common.constant.QuestionType;
 import com.uml.common.po.Answer;
+import com.uml.common.po.Article;
+import com.uml.common.po.Comment;
 import com.uml.common.po.Question;
 import com.uml.common.utils.SensitiveFilter;
 import com.uml.projectapp.dao.AnswerDao;
@@ -59,7 +62,7 @@ class ProjectAppApplicationTests {
     SensitiveFilter sensitiveFilter;
     @Test
     void contextLoads() throws JsonProcessingException {
-
+        articleService.publishArticle(new Article().setTitle("测试过滤器").setContent("傻逼").setUid(2L).setType(ArticleType.SOFTWARE));
 
     }
 

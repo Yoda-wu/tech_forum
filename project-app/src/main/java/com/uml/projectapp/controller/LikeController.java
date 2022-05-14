@@ -8,6 +8,8 @@ import com.uml.common.po.Article;
 import com.uml.common.utils.ResultUtil;
 import com.uml.projectapp.service.ArticleService;
 import com.uml.projectapp.service.LikeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,6 +24,7 @@ public class LikeController {
 
     private final ArticleService articleService;
     private final LikeService likeService;
+    private final Logger logger = LoggerFactory.getLogger(LikeController.class);
 
     public LikeController(ArticleService articleService, LikeService likeService) {
         this.articleService = articleService;
@@ -40,6 +43,7 @@ public class LikeController {
     @PostMapping(value = "/like", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String like(String type, Long id, Long uid) throws JsonProcessingException {
+
         // 调用service层like方法进行点赞。
         likeService.like(type, id, uid);
         // 从redis中获取点赞数量以及用户点赞状态。

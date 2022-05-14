@@ -18,7 +18,6 @@ public class LikeServiceImpl implements LikeService {
     private final static Logger logger = LoggerFactory.getLogger(LikeServiceImpl.class);
     @Override
     public void like(String type, Long id, Long uid) {
-
         // 准备点赞的键值
         String likeKey = RedisKeyUtil.generateKey(type + RedisKeyUtil.SPLIT + Constant.LIKE, id);
         logger.info("[like]>>>> key is "+ likeKey);

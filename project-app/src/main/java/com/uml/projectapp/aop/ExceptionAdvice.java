@@ -27,8 +27,7 @@ public class ExceptionAdvice {
     }
 
     private void logError(HttpServletRequest request, Exception e){
-        log.error("path:{}, queryParam:{} ", request.getRequestURI(), request.getQueryString());
-        log.error("服务器发生异常 : {}",e.getMessage());
+        log.error("path:{}, queryParam:{},服务器发生异常 : {} ", request.getRequestURI(), request.getQueryString(),e.getMessage());
         for (StackTraceElement element : e.getStackTrace()){
             log.error(element.toString());
         }

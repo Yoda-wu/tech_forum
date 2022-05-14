@@ -1,10 +1,5 @@
 package com.uml.common.utils;
 
-
-import io.netty.util.CharsetUtil;
-import org.apache.commons.codec.binary.CharSequenceUtils;
-import org.apache.http.util.CharsetUtils;
-import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.apache.commons.lang.CharUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +31,6 @@ public class SensitiveFilter {
         logger.info("init.................");
         try (
                 InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("sensitive_word.txt");
-
         ) {
             assert resourceAsStream != null;
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(resourceAsStream,"utf-8"));
@@ -85,6 +79,7 @@ public class SensitiveFilter {
      * @return 过滤后的文本
      */
     public String filter(String text) {
+        logger.info("[Filter ()] --- "+ text);
         if(text == null || text.length() < 1){
             return null;
         }
@@ -136,6 +131,7 @@ public class SensitiveFilter {
     }
 
     private boolean isSymbol(Character c){
+        logger.debug("[filter isSymbol()] --- "+ c);
         return CharUtils.isAsciiAlphanumeric(c) && (c < 0x2E80 || c > 0x9FFF);
     }
     private class TrieNode {

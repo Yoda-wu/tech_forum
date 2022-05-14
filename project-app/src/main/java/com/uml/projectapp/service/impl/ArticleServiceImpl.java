@@ -160,8 +160,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public String publishArticle(Article article) throws JsonProcessingException {
+        logger.info("[发布文章] --- "+String.valueOf(article));
         // 发布非草稿箱里的文章
         if (article.getId() == null) {
+            logger.info("[ID 为空] --- ");
             article.setContent(sensitiveFilter.filter(article.getContent()));
             article.setTitle(sensitiveFilter.filter(article.getTitle()));
             return insertArticle(article.getUid(),
