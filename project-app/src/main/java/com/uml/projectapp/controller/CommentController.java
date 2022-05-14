@@ -38,7 +38,7 @@ public class CommentController {
         int commentNumber = commentService.addComment(comment);
         Map<String,Object> map = new HashMap<>();
         map.put("comment",comment);
-        map.put("comment number",commentNumber);
+        map.put("commentNumber",commentNumber);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 
@@ -58,7 +58,7 @@ public class CommentController {
     public String deleteComment(@RequestBody Comment comment) throws JsonProcessingException {
         int commentNumber = commentService.deleteComment(comment);
         Map<String,Object> map = new HashMap<>();
-        map.put("comment number",commentNumber);
+        map.put("commentNumber",commentNumber);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 
@@ -66,7 +66,8 @@ public class CommentController {
     public String getArticleCommentNumber(Long articleId) throws JsonProcessingException {
         int commentNumber = commentService.getArticleCommentNumber(articleId);
         Map<String,Object> map = new HashMap<>();
-        map.put("comment number",commentNumber);
+        map.put("articleId",articleId);
+        map.put("commentNumber",commentNumber);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 
@@ -74,7 +75,8 @@ public class CommentController {
     public String getSubCommentNumber(Long parentId) throws JsonProcessingException {
         int commentNumber = commentService.getSubCommentNumber(parentId);
         Map<String,Object> map = new HashMap<>();
-        map.put("comment number",commentNumber);
+        map.put("parentId",parentId);
+        map.put("commentNumber",commentNumber);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 }

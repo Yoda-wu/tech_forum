@@ -62,7 +62,9 @@ public class LikeController {
     public String getLikeState(String type, Long id, Long uid) throws JsonProcessingException {
         Map<String,Object> map = new HashMap<>();
         int likeState = likeService.userLikeState(type, id, uid);
-        map.put("like state",likeState);
+        map.put("likeState",likeState);
+        map.put("commentId",id);
+        map.put("uid",uid);
         return ResultUtil.generateResult(ErrorCode.SUCCESS,map );
     }
 }
