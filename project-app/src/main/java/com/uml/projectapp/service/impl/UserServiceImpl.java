@@ -78,6 +78,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String userUpdate(User user) throws JsonProcessingException {
+        logger.info(user.toString());
+        if(user.getId() == null){
+            return ResultUtil.generateResult(ErrorCode.FAIL,"所传的用户id为空");
+        }
         // 更新用户信息 -- 直接传入对象
         userDao.updateById(user);
         clearCache(user.getId());

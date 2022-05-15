@@ -7,10 +7,7 @@ import com.uml.common.po.User;
 import com.uml.common.utils.ResultUtil;
 import com.uml.projectapp.service.FollowService;
 import com.uml.projectapp.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,9 +28,11 @@ public class UserController {
     }
 
     @PostMapping("edit")
-    public String updateUserInfo(User user) throws JsonProcessingException {
-        userService.userUpdate(user);
-        return ResultUtil.generateSuccessResult();
+    public String updateUserInfo(@RequestBody User user) throws JsonProcessingException {
+        if(user == null){
+            return ResultUtil.generateResult(ErrorCode.FAIL,"所传的用户信息为空");
+        }
+        return userService.userUpdate(user);
     }
 
     @PostMapping("follow")
