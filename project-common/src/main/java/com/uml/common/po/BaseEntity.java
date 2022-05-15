@@ -91,6 +91,7 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
      * 版本号
      */
     @Version
+    @TableField(fill = FieldFill.UPDATE)
     protected int version;
     /**
      * 创建时间

@@ -56,7 +56,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 结果实体
      */
-    public String userUpdateNameById(String name,Integer id) throws JsonProcessingException;
+    public String userUpdateNameById(String name,Long id) throws JsonProcessingException;
 
     /**根据id修改用户名
      *
@@ -64,7 +64,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 结果实体
      */
-    public String userUpdatePhoneById(String phone,Integer id) throws JsonProcessingException;
+    public String userUpdatePhoneById(String phone,Long id) throws JsonProcessingException;
 
     /**根据id修改用户头像
      *
@@ -72,7 +72,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 结果实体
      */
-    public String userUpdateAvatarById(String avatar,Integer id) throws JsonProcessingException;
+    public String userUpdateAvatarById(String avatar,Long id) throws JsonProcessingException;
 
     /**根据id修改用户
      *
@@ -80,7 +80,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 结果实体
      */
-    public String userUpdateGenderById(Integer gender,Integer id) throws JsonProcessingException;
+    public String userUpdateGenderById(Integer gender,Long id) throws JsonProcessingException;
 
     /**根据id修改用户名
      *
@@ -88,7 +88,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 结果实体
      */
-    public String userUpdateDescById(String desc,Integer id) throws JsonProcessingException;
+    public String userUpdateDescById(String desc,Long id) throws JsonProcessingException;
 
 
     /**根据id修改用户学院
@@ -97,7 +97,7 @@ public interface UserService {
      * @param id 用户ID
      * @return 结果实体
      */
-    public String userUpdateSchoolById(String school,Integer id) throws JsonProcessingException;
+    public String userUpdateSchoolById(String school,Long id) throws JsonProcessingException;
 
     /**
      * 获取登录凭证的对象

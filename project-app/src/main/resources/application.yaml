@@ -47,3 +47,7 @@ mybatis-plus:
     db-config:
       logic-delete-value: 1
       logic-not-delete-value: 0
+      insert-strategy: not_null
+      update-strategy: not_empty
+
+

@@ -17,7 +17,7 @@ import java.util.Map;
  * @date 2022-04-23 12:39
  */
 @RestController
-@RequestMapping(value = "user", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/user", produces = "application/json;charset=UTF-8")
 public class UserController {
     private final UserService userService;
     private final FollowService followService;
@@ -27,7 +27,7 @@ public class UserController {
         this.followService = followService;
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String updateUserInfo(@RequestBody User user) throws JsonProcessingException {
         if(user == null){
             return ResultUtil.generateResult(ErrorCode.FAIL,"所传的用户信息为空");

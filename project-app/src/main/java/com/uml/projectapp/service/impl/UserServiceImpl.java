@@ -2,6 +2,7 @@ package com.uml.projectapp.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uml.common.constant.Constant;
 import com.uml.common.constant.ErrorCode;
@@ -79,12 +80,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public String userUpdate(User user) throws JsonProcessingException {
         logger.info(user.toString());
-        if(user.getId() == null){
+        Long id = user.getId();
+        if(id == null){
             return ResultUtil.generateResult(ErrorCode.FAIL,"所传的用户id为空");
         }
+        User old = userDao.selectById(id);
         // 更新用户信息 -- 直接传入对象
-        userDao.updateById(user);
-        clearCache(user.getId());
+        updateById(new UpdateWrapper<User>().eq("id",id)
+                .set(User.NAME,(user.getName() == null || user.getName().length() == 0)?old.getName():user.getName())
+                .set(User.AVATAR,(user.getAvatar() == null || user.getAvatar().length() == 0 ? old.getAvatar():user.getAvatar()))
+                .set(User.PHONE,(user.getPhone() == null || user.getPhone().length() == 0)?old.getPhone():user.getPhone())
+                .set(User.DESC,(user.getDesc() == null  ? old.getDesc() : user.getDesc()))
+                .set(User.GENDER,(user.getGender() == null ? old.getGender() :user.getGender()))
+                .set(User.SCHOOL,(user.getSchool() == null || user.getSchool().length() == 0 ? old.getSchool():user.getSchool()))
+        );
+
+        clearCache(id);
         return ResultUtil.generateResult(ErrorCode.SUCCESS, user);
     }
 
@@ -95,7 +106,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String userUpdateNameById(String name, Integer id) throws JsonProcessingException {
+    public String userUpdateNameById(String name, Long id) throws JsonProcessingException {
         User user = userDao.selectById(id);
         user.setName(name);
         userDao.updateById(user);
@@ -103,7 +114,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String userUpdatePhoneById(String phone, Integer id) throws JsonProcessingException {
+    public String userUpdatePhoneById(String phone, Long id) throws JsonProcessingException {
         User user = userDao.selectById(id);
         user.setPhone(phone);
         userDao.updateById(user);
@@ -111,7 +122,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String userUpdateAvatarById(String avatar, Integer id) throws JsonProcessingException {
+    public String userUpdateAvatarById(String avatar, Long id) throws JsonProcessingException {
         User user = userDao.selectById(id);
         user.setAvatar(avatar);
         userDao.updateById(user);
@@ -119,7 +130,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String userUpdateGenderById(Integer gender, Integer id) throws JsonProcessingException {
+    public String userUpdateGenderById(Integer gender, Long id) throws JsonProcessingException {
         User user = userDao.selectById(id);
         user.setGender(Gender.values()[gender]);
         userDao.updateById(user);
@@ -127,7 +138,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String userUpdateDescById(String desc, Integer id) throws JsonProcessingException {
+    public String userUpdateDescById(String desc, Long id) throws JsonProcessingException {
         User user = userDao.selectById(id);
         user.setDesc(desc);
         userDao.updateById(user);
@@ -135,7 +146,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String userUpdateSchoolById(String school, Integer id) throws JsonProcessingException {
+    public String userUpdateSchoolById(String school, Long id) throws JsonProcessingException {
         User user = userDao.selectById(id);
         user.setSchool(school);
         userDao.updateById(user);

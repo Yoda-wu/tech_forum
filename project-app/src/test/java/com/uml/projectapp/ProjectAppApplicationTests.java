@@ -62,7 +62,6 @@ class ProjectAppApplicationTests {
     SensitiveFilter sensitiveFilter;
     @Test
     void contextLoads() throws JsonProcessingException {
-        articleService.publishArticle(new Article().setTitle("测试过滤器").setContent("傻逼").setUid(2L).setType(ArticleType.SOFTWARE));
 
     }
 
@@ -105,6 +104,6 @@ class ProjectAppApplicationTests {
 
     @Test
     public void testmodify() throws JsonProcessingException{
-        userService.userUpdateNameById("M",2);
+        userService.userUpdateNameById("M",2l);
     }
 }
