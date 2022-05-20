@@ -1,10 +1,13 @@
 package com.uml.projectapp.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.uml.common.constant.Constant;
 import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Comment;
+import com.uml.common.po.Event;
 import com.uml.common.utils.ResultUtil;
 import com.uml.common.vo.CommentListVo;
+import com.uml.projectapp.event.EventProducer;
 import com.uml.projectapp.service.CommentService;
 import net.bytebuddy.implementation.bytecode.constant.IntegerConstant;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +24,10 @@ import java.util.Map;
 public class CommentController {
 
     private final CommentService commentService;
-
-    public CommentController(CommentService commentService) {
+    private final EventProducer eventProducer;
+    public CommentController(CommentService commentService,EventProducer eventProducer) {
         this.commentService = commentService;
+        this.eventProducer = eventProducer;
     }
 
     /**
@@ -39,6 +43,22 @@ public class CommentController {
         Map<String,Object> map = new HashMap<>();
         map.put("comment",comment);
         map.put("commentNumber",commentNumber);
+        String type;
+        if(comment.getArticleId().equals(comment.getParentId())){
+            type = Constant.ARTICLE;
+        }else {
+            type = Constant.COMMENT;
+        }
+        eventProducer.fireEvent(new Event().setUserId(comment.getUid())
+                .setTopic(Constant.COMMENT)
+                .setEntityType(type)
+                .setEntityId(comment.getId())
+                .setEntityUserId(commentService.getCommentUserId(type,comment.getParentId()))
+                .setData("articleId",comment.getArticleId())
+        );
+
+
+
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }
 

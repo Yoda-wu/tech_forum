@@ -3,8 +3,10 @@ package com.uml.projectapp.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uml.common.constant.Constant;
 import com.uml.common.constant.ErrorCode;
+import com.uml.common.po.Event;
 import com.uml.common.po.User;
 import com.uml.common.utils.ResultUtil;
+import com.uml.projectapp.event.EventProducer;
 import com.uml.projectapp.service.FollowService;
 import com.uml.projectapp.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +23,18 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final FollowService followService;
+    private final EventProducer eventProducer;
 
-    public UserController(UserService userService, FollowService followService) {
+    public UserController(UserService userService, FollowService followService, EventProducer eventProducer) {
         this.userService = userService;
+        this.eventProducer = eventProducer;
         this.followService = followService;
     }
 
     @PostMapping("/edit")
     public String updateUserInfo(@RequestBody User user) throws JsonProcessingException {
-        if(user == null){
-            return ResultUtil.generateResult(ErrorCode.FAIL,"所传的用户信息为空");
+        if (user == null) {
+            return ResultUtil.generateResult(ErrorCode.FAIL, "所传的用户信息为空");
         }
         return userService.userUpdate(user);
     }
@@ -38,6 +42,13 @@ public class UserController {
     @PostMapping("follow")
     public String followUser(Long uid, Long entityId) throws JsonProcessingException {
         followService.followOperation(uid, Constant.USER, entityId, false);
+        eventProducer.fireEvent(
+                new Event().setTopic(Constant.FOLLOW)
+                        .setUserId(uid)
+                        .setEntityType(Constant.USER)
+                        .setEntityId(entityId)
+                        .setEntityUserId(entityId)
+        );
         return ResultUtil.generateResult(ErrorCode.SUCCESS, null);
     }
 
@@ -105,6 +116,6 @@ public class UserController {
 
     @GetMapping("followeeState")
     public String getFolloweeState(Long uid, Long entityId) throws JsonProcessingException {
-        return ResultUtil.generateResult(ErrorCode.SUCCESS,followService.getFolloweeState(uid,Constant.USER,entityId));
+        return ResultUtil.generateResult(ErrorCode.SUCCESS, followService.getFolloweeState(uid, Constant.USER, entityId));
     }
 }

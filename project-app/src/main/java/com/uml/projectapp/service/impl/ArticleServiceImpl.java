@@ -93,6 +93,18 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public ArticleListVo listArticleById(Long uid,Integer current, Integer size) {
+        List<ArticleVo> articleVos = articleDao.listUserArticle(uid, current, size);
+        ArticleListVo articleListVo = new ArticleListVo();
+        // 把查询结果放到结果的视图层对象
+        articleListVo.setCurrent(current);
+        articleListVo.setSize(size);
+        articleListVo.setArticles(articleVos);
+        articleListVo.setTotal((long) articleVos.size());
+        return  articleListVo;
+    }
+
+    @Override
     public Boolean deleteArticle(Long articleId) {
         // 日志输出 -- TODO 转移到aop  2022.04.03
         logger.info("[deleting article]>>>>>>>>>" + articleDao.exists(new QueryWrapper<Article>().eq("id", articleId)));

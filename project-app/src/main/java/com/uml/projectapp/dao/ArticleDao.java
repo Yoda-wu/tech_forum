@@ -30,5 +30,18 @@ public interface ArticleDao extends BaseMapper<Article> {
     )
     List<ArticleVo> listPublishedArticle(Integer current, Integer size);
 
-
+    /**
+     * 根据用户id获取用户文章
+     *
+     * @param uid     用户id
+     * @param current 当前页
+     * @param size    大小
+     * @return 文章列表
+     */
+    @Select("SELECT a.*,u.name,u.avatar " +
+            "FROM `article` a, `user` u " +
+            "WHERE a.uid = #{uid} AND a.delete = false AND a.state = 'PUBLISHED' " +
+            "LIMIT #{current}, #{size} "
+    )
+    List<ArticleVo> listUserArticle(Long uid, Integer current, Integer size);
 }

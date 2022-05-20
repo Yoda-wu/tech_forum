@@ -81,6 +81,14 @@ public interface ArticleService {
     public ArticleListVo listPublishedArticle(Integer current, Integer size);
 
     /**
+     * 根据用户的id来查询文章
+     * @param uid 用户id
+     * @param current  当前页
+     * @param size 页大小
+     * @return 文章列表
+     */
+    public ArticleListVo listArticleById(Long uid,Integer current, Integer size);
+    /**
      * 删除用户的文章
      *
      * @param articleId 文章id

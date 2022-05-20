@@ -5,8 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uml.common.constant.Constant;
 import com.uml.common.constant.ErrorCode;
 import com.uml.common.po.Article;
+import com.uml.common.po.Event;
 import com.uml.common.utils.ResultUtil;
+import com.uml.projectapp.event.EventProducer;
 import com.uml.projectapp.service.ArticleService;
+import com.uml.projectapp.service.CommentService;
 import com.uml.projectapp.service.LikeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +24,16 @@ import java.util.Map;
  */
 @RestController
 public class LikeController {
-
+    private final Logger logger = LoggerFactory.getLogger(LikeController.class);
     private final ArticleService articleService;
     private final LikeService likeService;
-    private final Logger logger = LoggerFactory.getLogger(LikeController.class);
-
-    public LikeController(ArticleService articleService, LikeService likeService) {
+    private final CommentService commentService;
+    private final EventProducer eventProducer;
+    public LikeController(ArticleService articleService, LikeService likeService,EventProducer eventProducer,CommentService commentService) {
         this.articleService = articleService;
         this.likeService = likeService;
+        this.commentService = commentService;
+        this.eventProducer = eventProducer;
     }
 
     /**
@@ -52,8 +57,25 @@ public class LikeController {
         HashMap<String, Object> map = new HashMap<>(2);
         map.put(Constant.LIKE_NUM, likeNumber);
         map.put(Constant.LIKE_STATE, userLikeState);
+
         // 更新数据库中的点赞数。
         articleService.updateById(new UpdateWrapper<Article>().eq("id", id).set("likes", likeNumber));
+        Long articleId = id;
+        if(type.equals(Constant.COMMENT)){
+            articleId  = commentService.getArticleId(id);
+        }
+        // 触发事件
+        if(userLikeState == 1){
+            eventProducer.fireEvent(new Event()
+                    .setUserId(uid)
+                    .setTopic(Constant.LIKE)
+                    .setEntityType(type)
+                    .setEntityId(id)
+                    .setEntityUserId( commentService.getCommentUserId(type, id))
+                    .setData("articleId", articleId)
+            );
+        }
+
         // 返回结果。
         return ResultUtil.generateResult(ErrorCode.SUCCESS, map);
     }

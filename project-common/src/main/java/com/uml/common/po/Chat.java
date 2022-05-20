@@ -3,7 +3,7 @@ package com.uml.common.po;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * 消息实体
@@ -17,6 +17,8 @@ public class Chat extends BaseEntity{
     public static final String SENDER_ID = "`sender_id`";
     public static final String RECEIVER_ID = "`receiver_id`";
     public static final String CONTENT = "`content`";
+    public static final String CONVERSATION_ID = "`conversation_id`";
+    public static final String STATUS = "`status`";
 
     @TableField(SENDER_ID)
     private Long senderId;
@@ -27,17 +29,43 @@ public class Chat extends BaseEntity{
     @TableField(CONTENT)
     private String content;
 
-    public Chat(Long senderId) {
-        this.senderId = senderId;
+    @TableField(CONVERSATION_ID)
+    private String conversationId;
+
+    /**
+     * 0 --- 未读
+     * 1 --- 已读
+     */
+    @TableField(STATUS)
+    private Integer status;
+
+    public Chat() {
     }
 
-    public Chat(Long id, int version, Date createTime, Date updateTime, boolean delete, Long senderId, Long receiverId, String content) {
+    public Chat(Long id, int version, Date createTime, Date updateTime, boolean delete, Long senderId, Long receiverId, String content, String conservationId, Integer statu) {
         super(id, version, createTime, updateTime, delete);
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
+        this.conversationId = conservationId;
+        this.status = statu;
     }
 
+    public String getConservationId() {
+        return conversationId;
+    }
+
+    public void setConservationId(String conservationId) {
+        this.conversationId = conservationId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Long getSenderId() {
         return senderId;
@@ -74,6 +102,8 @@ public class Chat extends BaseEntity{
                 ", senderId=" + senderId +
                 ", receiverId=" + receiverId +
                 ", content='" + content + '\'' +
+                ", conservationId=" + conversationId +
+                ", status=" + status +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.uml.projectapp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.uml.common.constant.Constant;
 import com.uml.common.po.Article;
 import com.uml.common.po.BaseEntity;
 import com.uml.common.po.Comment;
@@ -87,5 +88,19 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int getArticleCommentNumber(Long articleId) {
         return commentDao.countArticleCommentNum(articleId);
+    }
+
+    @Override
+    public Long getCommentUserId(String type ,Long parentId) {
+        if(type.equals(Constant.COMMENT)){
+            return commentDao.selectUserByParentId(parentId);
+        }else{
+            return commentDao.selectUserByArticleId(parentId);
+        }
+    }
+
+    @Override
+    public Long getArticleId(Long id) {
+        return  commentDao.getArticleIdById(id);
     }
 }

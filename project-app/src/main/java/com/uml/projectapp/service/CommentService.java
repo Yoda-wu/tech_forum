@@ -60,4 +60,21 @@ public interface CommentService {
      * @return 评论数
      */
     public int getArticleCommentNumber(Long articleId);
+
+    /**
+     * 通过父id获取父评论的对象id
+     *
+     * @param type 类型
+     * @param parentId 父id
+     * @return 对象id
+     */
+    public Long getCommentUserId(String type ,Long parentId);
+
+
+    /**
+     * 通过评论id获取文章id
+     * @param id 评论id
+     * @return 获取文章id
+     */
+    public Long getArticleId(Long id);
 }

@@ -28,6 +28,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.listener.ConsumerRecordRecoverer;
+import org.springframework.kafka.listener.adapter.ConsumerRecordMetadata;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +65,9 @@ class ProjectAppApplicationTests {
     FollowService followService;
     @Autowired
     SensitiveFilter sensitiveFilter;
+//    @Autowired
+//    Produceer produceer;
+
     @Test
     void contextLoads() throws JsonProcessingException {
 
@@ -107,3 +115,19 @@ class ProjectAppApplicationTests {
         userService.userUpdateNameById("M",2l);
     }
 }
+//@Component
+//class Produceer{
+//    @Autowired
+//    KafkaTemplate kafkaTemplate;
+//    public void send(String topic,String msg){
+//        kafkaTemplate.send(topic,msg);
+//    }
+//}
+//
+//@Component
+//class Consumer{
+//    @KafkaListener(topics = {"test-topic"})
+//    public void handler(String msg  ){
+//        System.out.println(msg);
+//    }
+//}

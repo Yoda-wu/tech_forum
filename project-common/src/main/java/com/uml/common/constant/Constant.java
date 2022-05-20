@@ -79,7 +79,14 @@ public class Constant {
      */
     public static final String LIKE = "likes";
 
+    /**
+     * 关注
+     */
+    public static final String FOLLOW = "follow";
     public static final String ID = "id";
 
     public static final String TICKET = "ticket";
+
+    public static final Long SYSTEM_USER_ID = 0L;
+
 }

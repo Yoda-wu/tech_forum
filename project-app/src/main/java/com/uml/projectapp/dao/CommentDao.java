@@ -73,4 +73,30 @@ public interface CommentDao extends BaseMapper<Comment> {
      */
     @Delete("delete from `comment` where id = #{id} or parent_id = #{id}")
     public int deleteComment(Long id);
+
+
+    /**
+     * 获取父评论的对象的用户id
+     * @param parentId 父评论id
+     * @return 用户id
+     */
+    @Select("select distinct(uid) from `comment` where id = #{parentId}")
+    public Long selectUserByParentId(Long parentId);
+
+    /**
+     * 获取所评论的文章的用户id
+     * @param articleId 文章id
+     * @return 用户id；
+     */
+    @Select("select distinct(uid) from `article` where id = #{articleId}  ")
+    public Long selectUserByArticleId(Long articleId);
+
+
+    /**
+     * 通过评论id获取文章id
+     * @param id 评论id
+     * @return 获取文章id
+     */
+    @Select("select article_id from comment where id = #{id} ")
+    public Long getArticleIdById(Long id);
 }

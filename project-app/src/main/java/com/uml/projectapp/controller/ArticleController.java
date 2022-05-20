@@ -110,6 +110,11 @@ public class ArticleController {
     }
 
 
+    @GetMapping("/getById")
+    public String getArticleById(Long uid,Integer current, Integer size) throws JsonProcessingException {
+        logger.info("uid: "+uid);
+        return ResultUtil.generateResult(ErrorCode.SUCCESS,articleService.listArticleById(uid, current, size));
+    }
 
 
 }
